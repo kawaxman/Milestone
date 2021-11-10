@@ -1,6 +1,0 @@
-framework module Pods_milestone_milestoneUITests {
-  umbrella header "Pods-milestone-milestoneUITests-umbrella.h"
-
-  export *
-  module * { export * }
-}
