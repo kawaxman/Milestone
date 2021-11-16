@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		22EE9E5D7AB584E4897A5AD7 /* Pods_milestone_milestoneUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1C875B49C4F0CA6126822B6 /* Pods_milestone_milestoneUITests.framework */; };
+		52098E9827445E1B00DFD97A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 52098E9727445E1A00DFD97A /* GoogleService-Info.plist */; };
 		527E2C3F273AFFCA00599EE1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527E2C3E273AFFCA00599EE1 /* AppDelegate.swift */; };
 		527E2C41273AFFCA00599EE1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527E2C40273AFFCA00599EE1 /* SceneDelegate.swift */; };
 		527E2C43273AFFCA00599EE1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527E2C42273AFFCA00599EE1 /* ViewController.swift */; };
@@ -20,7 +21,6 @@
 		527E2C72273B324700599EE1 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527E2C71273B324700599EE1 /* LoginViewController.swift */; };
 		527E2C74273B326100599EE1 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527E2C73273B326100599EE1 /* SignUpViewController.swift */; };
 		527E2C76273B327200599EE1 /* TimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527E2C75273B327200599EE1 /* TimelineViewController.swift */; };
-		527E2C78273B3C5000599EE1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 527E2C77273B3C5000599EE1 /* GoogleService-Info.plist */; };
 		647EB345B092A7553D012635 /* Pods_milestone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82D40050D61D495822A59C02 /* Pods_milestone.framework */; };
 		ED9B2EF4C352ADEFA03077FE /* Pods_milestoneTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32CD89F10EC6E547521288BB /* Pods_milestoneTests.framework */; };
 /* End PBXBuildFile section */
@@ -45,6 +45,7 @@
 /* Begin PBXFileReference section */
 		096C045AF2E93AC69ADB57C8 /* Pods-milestoneTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-milestoneTests.release.xcconfig"; path = "Target Support Files/Pods-milestoneTests/Pods-milestoneTests.release.xcconfig"; sourceTree = "<group>"; };
 		32CD89F10EC6E547521288BB /* Pods_milestoneTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_milestoneTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		52098E9727445E1A00DFD97A /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		527E2C3B273AFFCA00599EE1 /* milestone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = milestone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		527E2C3E273AFFCA00599EE1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		527E2C40273AFFCA00599EE1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -63,7 +64,6 @@
 		527E2C71273B324700599EE1 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		527E2C73273B326100599EE1 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		527E2C75273B327200599EE1 /* TimelineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewController.swift; sourceTree = "<group>"; };
-		527E2C77273B3C5000599EE1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6541925210A6338ABBDF44F4 /* Pods-milestone-milestoneUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-milestone-milestoneUITests.debug.xcconfig"; path = "Target Support Files/Pods-milestone-milestoneUITests/Pods-milestone-milestoneUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		82D40050D61D495822A59C02 /* Pods_milestone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_milestone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		82D5F1283C8F1BCB4BFDF411 /* Pods-milestone-milestoneUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-milestone-milestoneUITests.release.xcconfig"; path = "Target Support Files/Pods-milestone-milestoneUITests/Pods-milestone-milestoneUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -147,7 +147,7 @@
 				527E2C47273AFFCB00599EE1 /* Assets.xcassets */,
 				527E2C49273AFFCB00599EE1 /* LaunchScreen.storyboard */,
 				527E2C4C273AFFCB00599EE1 /* Info.plist */,
-				527E2C77273B3C5000599EE1 /* GoogleService-Info.plist */,
+				52098E9727445E1A00DFD97A /* GoogleService-Info.plist */,
 			);
 			path = milestone;
 			sourceTree = "<group>";
@@ -300,7 +300,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				527E2C4B273AFFCB00599EE1 /* LaunchScreen.storyboard in Resources */,
-				527E2C78273B3C5000599EE1 /* GoogleService-Info.plist in Resources */,
+				52098E9827445E1B00DFD97A /* GoogleService-Info.plist in Resources */,
 				527E2C48273AFFCB00599EE1 /* Assets.xcassets in Resources */,
 				527E2C46273AFFCA00599EE1 /* Main.storyboard in Resources */,
 			);
