@@ -9,6 +9,8 @@ import UIKit
 import SwiftUI
 
 
-class TimelineViewController: UIViewController {
+class TimelineViewController: UITableViewController {
+    
+    
     
 }
