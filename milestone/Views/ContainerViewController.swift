@@ -35,6 +35,11 @@ class ContainerViewController: UIViewController {
         //Found from youtube video on adding a side menu bar
         addChildVCs()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
 
     private func addChildVCs() {
         //The order of these matters! This is the order that the views are placed inside the container view
