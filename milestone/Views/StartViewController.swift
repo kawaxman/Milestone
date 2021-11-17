@@ -15,7 +15,6 @@ class StartViewController : UIViewController {
     
     @IBAction func loginButtonPressed(_ sender: Any) {
         self.performSegue(withIdentifier: "startToLogin", sender: self)
-
     }
     
     @IBAction func signUpButtonPressed(_ sender: Any) {

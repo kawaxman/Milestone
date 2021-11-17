@@ -7,11 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E39C75727447A4100716B76 /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E39C75627447A4100716B76 /* SideMenuViewController.swift */; };
+		0E39C759274581B900716B76 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E39C758274581B900716B76 /* ContainerViewController.swift */; };
+		0E41F94727459DA1000ED8BB /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E41F94627459DA1000ED8BB /* CalendarViewController.swift */; };
 		22EE9E5D7AB584E4897A5AD7 /* Pods_milestone_milestoneUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1C875B49C4F0CA6126822B6 /* Pods_milestone_milestoneUITests.framework */; };
 		52098E9827445E1B00DFD97A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 52098E9727445E1A00DFD97A /* GoogleService-Info.plist */; };
 		527E2C3F273AFFCA00599EE1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527E2C3E273AFFCA00599EE1 /* AppDelegate.swift */; };
 		527E2C41273AFFCA00599EE1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527E2C40273AFFCA00599EE1 /* SceneDelegate.swift */; };
-		527E2C43273AFFCA00599EE1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527E2C42273AFFCA00599EE1 /* ViewController.swift */; };
 		527E2C46273AFFCA00599EE1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 527E2C44273AFFCA00599EE1 /* Main.storyboard */; };
 		527E2C48273AFFCB00599EE1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 527E2C47273AFFCB00599EE1 /* Assets.xcassets */; };
 		527E2C4B273AFFCB00599EE1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 527E2C49273AFFCB00599EE1 /* LaunchScreen.storyboard */; };
@@ -44,16 +46,18 @@
 
 /* Begin PBXFileReference section */
 		096C045AF2E93AC69ADB57C8 /* Pods-milestoneTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-milestoneTests.release.xcconfig"; path = "Target Support Files/Pods-milestoneTests/Pods-milestoneTests.release.xcconfig"; sourceTree = "<group>"; };
+		0E39C75627447A4100716B76 /* SideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
+		0E39C758274581B900716B76 /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
+		0E41F94627459DA1000ED8BB /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		32CD89F10EC6E547521288BB /* Pods_milestoneTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_milestoneTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		52098E9727445E1A00DFD97A /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		527E2C3B273AFFCA00599EE1 /* milestone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = milestone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		527E2C3E273AFFCA00599EE1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		527E2C40273AFFCA00599EE1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		527E2C42273AFFCA00599EE1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		527E2C45273AFFCA00599EE1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		527E2C47273AFFCB00599EE1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		527E2C4A273AFFCB00599EE1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		527E2C4C273AFFCB00599EE1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		527E2C4C273AFFCB00599EE1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = milestone/Info.plist; sourceTree = SOURCE_ROOT; };
 		527E2C51273AFFCB00599EE1 /* milestoneTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = milestoneTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		527E2C55273AFFCB00599EE1 /* milestoneTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = milestoneTests.swift; sourceTree = "<group>"; };
 		527E2C57273AFFCB00599EE1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -142,7 +146,6 @@
 				527E2C6E273B31E600599EE1 /* Views */,
 				527E2C3E273AFFCA00599EE1 /* AppDelegate.swift */,
 				527E2C40273AFFCA00599EE1 /* SceneDelegate.swift */,
-				527E2C42273AFFCA00599EE1 /* ViewController.swift */,
 				527E2C44273AFFCA00599EE1 /* Main.storyboard */,
 				527E2C47273AFFCB00599EE1 /* Assets.xcassets */,
 				527E2C49273AFFCB00599EE1 /* LaunchScreen.storyboard */,
@@ -177,6 +180,9 @@
 				527E2C71273B324700599EE1 /* LoginViewController.swift */,
 				527E2C73273B326100599EE1 /* SignUpViewController.swift */,
 				527E2C75273B327200599EE1 /* TimelineViewController.swift */,
+				0E39C758274581B900716B76 /* ContainerViewController.swift */,
+				0E41F94627459DA1000ED8BB /* CalendarViewController.swift */,
+				0E39C75627447A4100716B76 /* SideMenuViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -431,10 +437,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				527E2C74273B326100599EE1 /* SignUpViewController.swift in Sources */,
-				527E2C43273AFFCA00599EE1 /* ViewController.swift in Sources */,
 				527E2C70273B31FA00599EE1 /* StartViewController.swift in Sources */,
+				0E39C759274581B900716B76 /* ContainerViewController.swift in Sources */,
 				527E2C3F273AFFCA00599EE1 /* AppDelegate.swift in Sources */,
 				527E2C76273B327200599EE1 /* TimelineViewController.swift in Sources */,
+				0E39C75727447A4100716B76 /* SideMenuViewController.swift in Sources */,
+				0E41F94727459DA1000ED8BB /* CalendarViewController.swift in Sources */,
 				527E2C72273B324700599EE1 /* LoginViewController.swift in Sources */,
 				527E2C41273AFFCA00599EE1 /* SceneDelegate.swift in Sources */,
 			);
