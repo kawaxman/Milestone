@@ -43,7 +43,7 @@ class SideMenuViewController: UIViewController, UITableViewDelegate, UITableView
     
     private let tableView: UITableView = {
         let table = UITableView()
-        table.backgroundColor = nil //We don't want the table view frame to be visible
+        table.backgroundColor = .systemYellow //We don't want the table view frame to be visible
         table.register(UITableViewCell.self, forCellReuseIdentifier: "cell") //this is the plain table view cell, we can edit this later if we want a different cell type
         return table
     }()
@@ -63,6 +63,7 @@ class SideMenuViewController: UIViewController, UITableViewDelegate, UITableView
         tableView.frame = CGRect(x: 0, y: view.safeAreaInsets.top, width: view.bounds.size.width, height: view.bounds.size.height)
     }
     
+    //TABLE FUNCTIONS
     //Filling in the table view cells from the menu options we just made
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return SideMenuOptions.allCases.count
@@ -80,12 +81,13 @@ class SideMenuViewController: UIViewController, UITableViewDelegate, UITableView
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //This will unhighlight the Side Menu Options
         tableView.deselectRow(at: indexPath, animated: true)
         
         //When we select an item, tell the delegate which one we selected and use that to communicate back to the containerViewController
         let item = SideMenuOptions.allCases[indexPath.row]
+//        print("Item/View selected: ",item)
         delegate?.didSelect(sideMenuItem: item)
     }
 }

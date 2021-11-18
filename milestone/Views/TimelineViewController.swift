@@ -24,15 +24,15 @@ class TimelineViewController: UITableViewController {
     //This is a weak variable because it prevents memory leaks
     weak var delegate: TimelineViewControllerDelegate?
     
-    @IBOutlet var milestoneName: UILabel!
-    @IBAction func refreshMilestoneButton(_ sender: Any) {
-        milestoneName.text = "Milestone1"
-    }
+//    @IBOutlet var milestoneName: UILabel!
+//    @IBAction func refreshMilestoneButton(_ sender: Any) {
+//        milestoneName.text = "Milestone1"
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Timeline"
-        view.backgroundColor = .systemRed
+        view.backgroundColor = .systemGreen
         
         //Based from afformentioned youtube video on side bar (normally We do this in the story board view)
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "gearshape"),

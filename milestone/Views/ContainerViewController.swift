@@ -32,7 +32,7 @@ class ContainerViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemRed
         
-        //Found from youtube video on adding a side menu bar
+        //Found from youtube video on adding a side menu bar: youtube.com/watch?v=1hzPFAYcuUI
         addChildVCs()
     }
     
@@ -79,6 +79,7 @@ extension ContainerViewController: TimelineViewControllerDelegate {
                 if done {
                     //When the opening animation is done, we need to do update the state to "open"
                     self?.sideMenuState = .opened
+//                    print("side bar is opened")
                 }
             }
 
@@ -91,7 +92,9 @@ extension ContainerViewController: TimelineViewControllerDelegate {
                 if done {
                     //When the opening animation is done, we need to do update the state to "closed"
                     self?.sideMenuState = .closed
+//                    print("side bar is closed")
                     DispatchQueue.main.async {
+//                        print("Attempting completion/callback handler")
                         completion?() //This is where we call the additional functionality if needed (must be done on the main UI thread so that the views are updated in proper time)
                     }
                 }
@@ -104,6 +107,7 @@ extension ContainerViewController: TimelineViewControllerDelegate {
 extension ContainerViewController: SideMenuViewControllerDelegate {
     func didSelect(sideMenuItem: SideMenuViewController.SideMenuOptions) {
         //This is where we will close the side menu and load the view that we selected
+//        print("Changing views") //this is not happening right after a selection
         toggleSideMenu(completion: nil)
         switch sideMenuItem {
         case .timeline:

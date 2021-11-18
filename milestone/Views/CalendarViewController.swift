@@ -12,7 +12,7 @@ class CalendarViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Test Page"
+        title = "Calendar"
         view.backgroundColor = .systemBlue
     }
 }

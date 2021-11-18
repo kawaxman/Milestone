@@ -4,8 +4,7 @@
 target 'milestone' do
   # Comment the next line if you don't want to use dynamic frameworks
   # Pods for milestone
-  	pod ‘SideMenu’
-  	pod ‘Firebase/Auth’
+  pod 'Firebase/Auth'
 	pod 'Firebase/Core'
 	pod 'Firebase/Firestore'
   use_frameworks!
