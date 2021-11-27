@@ -271,9 +271,10 @@
                         <viewLayoutGuide key="safeArea" id="6X4-GP-BkC"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <navigationItem key="navigationItem" id="v93-rB-0Fp"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
-                        <segue destination="rJ7-jW-H72" kind="show" identifier="timelineToAddTask" id="xcL-xE-Bv2"/>
+                        <segue destination="ZaH-dG-Lgc" kind="show" identifier="timelineToAddTask" id="FLL-IV-Mgf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IpC-xm-N2I" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -306,7 +307,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Next"/>
                                 <connections>
-                                    <segue destination="Bev-rZ-HUv" kind="show" identifier="taskToMilestone" id="tst-UN-IrL"/>
+                                    <segue destination="Bev-rZ-HUv" kind="show" identifier="taskToMilestone" id="Yow-0a-XL8"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -321,26 +322,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Luo-2x-SHk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1960.8695652173915" y="997.76785714285711"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="htv-4y-rxp">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="rJ7-jW-H72" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationItem key="navigationItem" id="evf-6H-6oI"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="zsW-cN-8kg">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="jzh-Lw-u0m" kind="relationship" relationship="rootViewController" id="Dii-r6-iaA"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="zFg-xF-na1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1050.7246376811595" y="997.76785714285711"/>
+            <point key="canvasLocation" x="2234.7826086956525" y="1017.8571428571428"/>
         </scene>
         <!--Milestone View Controller-->
         <scene sceneID="YhA-ci-99n">
@@ -359,27 +341,18 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Milestone Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yvw-m2-KaY">
-                                            <rect key="frame" x="55" y="18" width="305" height="34"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="34" id="L4b-MH-2f7"/>
-                                            </constraints>
+                                            <rect key="frame" x="141" y="11" width="132.5" height="33"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
                                         </textField>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Milestone Difficulty Rating:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z6P-7h-q5B">
-                                            <rect key="frame" x="20" y="226" width="333" height="21"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="21" id="3pP-td-27Q"/>
-                                            </constraints>
+                                            <rect key="frame" x="20" y="226" width="320" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="pbu-jl-wIC">
                                             <rect key="frame" x="20" y="255" width="374" height="32"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="31" id="5iL-z1-cdI"/>
-                                            </constraints>
                                             <segments>
                                                 <segment title="1"/>
                                                 <segment title="2"/>
@@ -393,36 +366,40 @@
                                                 <segment title="10"/>
                                             </segments>
                                         </segmentedControl>
-                                        <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" translatesAutoresizingMaskIntoConstraints="NO" id="W6X-9B-Qpu">
-                                            <rect key="frame" x="20" y="109" width="333" height="98"/>
-                                        </datePicker>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Milestone Due:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cte-cE-hfm">
-                                            <rect key="frame" x="20" y="80" width="333" height="21"/>
+                                            <rect key="frame" x="20" y="57" width="320" height="20"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="21" id="gPm-lh-3RH"/>
+                                                <constraint firstAttribute="height" constant="20" id="Oc0-a5-ZH4"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" translatesAutoresizingMaskIntoConstraints="NO" id="W6X-9B-Qpu">
+                                            <rect key="frame" x="20" y="84" width="320" height="133"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="133" id="7Zp-C6-Lw5"/>
+                                            </constraints>
+                                        </datePicker>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="pbu-jl-wIC" firstAttribute="trailing" secondItem="Yfx-LA-oFg" secondAttribute="trailingMargin" id="2RF-I4-jTU"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="Cte-cE-hfm" secondAttribute="trailing" constant="41" id="2W8-Ot-Xng"/>
-                                        <constraint firstItem="Cte-cE-hfm" firstAttribute="leading" secondItem="Yfx-LA-oFg" secondAttribute="leadingMargin" id="362-pJ-eNg"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="pbu-jl-wIC" secondAttribute="bottom" constant="4" id="3kF-Hl-uwT"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="Z6P-7h-q5B" secondAttribute="trailing" constant="41" id="HDC-DW-jhr"/>
-                                        <constraint firstItem="Cte-cE-hfm" firstAttribute="top" secondItem="yvw-m2-KaY" secondAttribute="bottom" constant="28" id="JNa-hW-Sug"/>
-                                        <constraint firstItem="W6X-9B-Qpu" firstAttribute="top" secondItem="Cte-cE-hfm" secondAttribute="bottom" constant="8" symbolic="YES" id="PcT-ge-XyW"/>
-                                        <constraint firstItem="pbu-jl-wIC" firstAttribute="leading" secondItem="Yfx-LA-oFg" secondAttribute="leadingMargin" id="V6u-i6-t7a"/>
-                                        <constraint firstItem="Z6P-7h-q5B" firstAttribute="leading" secondItem="Yfx-LA-oFg" secondAttribute="leadingMargin" id="X7w-jn-JKs"/>
-                                        <constraint firstItem="yvw-m2-KaY" firstAttribute="leading" secondItem="Yfx-LA-oFg" secondAttribute="leadingMargin" constant="35" id="ZD8-H3-UDV"/>
-                                        <constraint firstItem="pbu-jl-wIC" firstAttribute="top" secondItem="Z6P-7h-q5B" secondAttribute="bottom" constant="8" symbolic="YES" id="jX1-jd-Q29"/>
-                                        <constraint firstItem="W6X-9B-Qpu" firstAttribute="leading" secondItem="Yfx-LA-oFg" secondAttribute="leadingMargin" id="lfR-NG-UhD"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="W6X-9B-Qpu" secondAttribute="trailing" constant="41" id="osT-Gf-NmK"/>
-                                        <constraint firstItem="Z6P-7h-q5B" firstAttribute="top" secondItem="W6X-9B-Qpu" secondAttribute="bottom" constant="19" id="pu6-4A-cgO"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="yvw-m2-KaY" secondAttribute="trailing" constant="34" id="rxR-Sg-Nsb"/>
-                                        <constraint firstItem="yvw-m2-KaY" firstAttribute="top" secondItem="Yfx-LA-oFg" secondAttribute="topMargin" constant="7" id="uRS-xt-HK2"/>
+                                        <constraint firstItem="yvw-m2-KaY" firstAttribute="leading" secondItem="Yfx-LA-oFg" secondAttribute="leadingMargin" constant="121" id="4V7-zF-yGo"/>
+                                        <constraint firstItem="Z6P-7h-q5B" firstAttribute="top" secondItem="W6X-9B-Qpu" secondAttribute="bottom" constant="9" id="7xf-9h-1KU"/>
+                                        <constraint firstItem="Cte-cE-hfm" firstAttribute="leading" secondItem="Yfx-LA-oFg" secondAttribute="leadingMargin" id="91E-sf-cEk"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="Cte-cE-hfm" secondAttribute="trailing" constant="54" id="EE3-fD-O4j"/>
+                                        <constraint firstItem="W6X-9B-Qpu" firstAttribute="centerY" secondItem="Yfx-LA-oFg" secondAttribute="centerY" id="KB0-jF-NWW"/>
+                                        <constraint firstItem="Cte-cE-hfm" firstAttribute="top" secondItem="yvw-m2-KaY" secondAttribute="bottom" constant="13" id="S3G-Id-ILs"/>
+                                        <constraint firstItem="W6X-9B-Qpu" firstAttribute="leading" secondItem="Yfx-LA-oFg" secondAttribute="leadingMargin" id="U2g-72-Mxw"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="W6X-9B-Qpu" secondAttribute="trailing" constant="54" id="VWN-8L-DnU"/>
+                                        <constraint firstItem="pbu-jl-wIC" firstAttribute="top" secondItem="Z6P-7h-q5B" secondAttribute="bottom" constant="8" symbolic="YES" id="WDb-xW-Bu2"/>
+                                        <constraint firstItem="pbu-jl-wIC" firstAttribute="leading" secondItem="Yfx-LA-oFg" secondAttribute="leadingMargin" id="Yt0-nz-p2K"/>
+                                        <constraint firstItem="W6X-9B-Qpu" firstAttribute="top" secondItem="Cte-cE-hfm" secondAttribute="bottom" constant="7" id="cZq-Dp-r2J"/>
+                                        <constraint firstItem="Z6P-7h-q5B" firstAttribute="leading" secondItem="Yfx-LA-oFg" secondAttribute="leadingMargin" id="dOX-j2-FUW"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="pbu-jl-wIC" secondAttribute="bottom" constant="4" id="iFD-82-gHO"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="Z6P-7h-q5B" secondAttribute="trailing" constant="54" id="iaN-gg-yUF"/>
+                                        <constraint firstItem="yvw-m2-KaY" firstAttribute="top" secondItem="Yfx-LA-oFg" secondAttribute="topMargin" id="tEW-gw-m3M"/>
+                                        <constraint firstItem="pbu-jl-wIC" firstAttribute="trailing" secondItem="Yfx-LA-oFg" secondAttribute="trailingMargin" id="xEL-jz-I2F"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="yvw-m2-KaY" secondAttribute="trailing" constant="120.5" id="y75-Ie-v0f"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -432,21 +409,26 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="addMilestoneCell" id="ARw-0U-7Aa" customClass="AddMilestoneCell" customModule="milestone" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="325.5" width="414" height="43.5"/>
+                                <rect key="frame" x="0.0" y="325.5" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ARw-0U-7Aa" id="70r-bc-gxa">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F5a-qu-Zl1">
-                                            <rect key="frame" x="123" y="7" width="168" height="30"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F5a-qu-Zl1">
+                                            <rect key="frame" x="123" y="7" width="168" height="30.5"/>
                                             <state key="normal" title="+ Add another milestone"/>
                                             <connections>
                                                 <action selector="addAnotherMilestone:" destination="Bev-rZ-HUv" eventType="touchUpInside" id="MZD-tr-9Vq"/>
                                             </connections>
                                         </button>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="F5a-qu-Zl1" firstAttribute="top" secondItem="70r-bc-gxa" secondAttribute="top" constant="7" id="5ZM-On-LSI"/>
+                                        <constraint firstAttribute="bottom" secondItem="F5a-qu-Zl1" secondAttribute="bottom" constant="6.5" id="iK6-F6-cbz"/>
+                                        <constraint firstItem="F5a-qu-Zl1" firstAttribute="leading" secondItem="70r-bc-gxa" secondAttribute="leading" constant="123" id="m6p-br-cv8"/>
+                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="F5a-qu-Zl1" secondAttribute="trailing" symbolic="YES" id="sax-27-XlU"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
@@ -455,15 +437,44 @@
                             <outlet property="delegate" destination="Bev-rZ-HUv" id="DiM-C6-BH2"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="47s-hr-cLG"/>
+                    <navigationItem key="navigationItem" id="47s-hr-cLG">
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="gzx-Gh-Awt">
+                            <connections>
+                                <action selector="submitMilestones:" destination="Bev-rZ-HUv" id="tra-g9-hEi"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <segue destination="4ot-4T-3DC" kind="unwind" identifier="unwindToTimeline" unwindAction="unwindToTimelineViewControllerWithSegue:" id="3Kv-dX-9Qj"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I1d-Kx-XQy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="4ot-4T-3DC" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2998.5507246376815" y="997.76785714285711"/>
+            <point key="canvasLocation" x="3257.971014492754" y="1017.8571428571428"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="lxz-fP-G5K">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ZaH-dG-Lgc" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="hLF-lD-IEB"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="EK1-Bs-6DQ">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="jzh-Lw-u0m" kind="relationship" relationship="rootViewController" id="fgM-6H-c8q"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="efd-bR-sQh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1324.6376811594205" y="1017.8571428571428"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="uar-dl-VYn"/>
+        <segue reference="NIF-Er-0SP"/>
     </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="systemBackgroundColor">

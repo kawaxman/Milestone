@@ -17,10 +17,6 @@ protocol TimelineViewControllerDelegate: AnyObject {
 }
 
 class TimelineViewController: UITableViewController {
-    //Use this for the amount of cells that the firebase query returns to load
-    //Create DB Reference
-    var db = Firestore.firestore()
-    let userID = Auth.auth().currentUser?.uid
     
     //This is a weak variable because it prevents memory leaks
     weak var delegate: TimelineViewControllerDelegate?
@@ -48,20 +44,12 @@ class TimelineViewController: UITableViewController {
     
     @objc func didTapSideMenuButton() {
         delegate?.didTapSideMenuButton()
-        //TODO- Use this for query selection + document and collection creation
-//        self.db.collection(userID!).document("Project Name").setData(["Milestone": "take out the trash"])
-//        self.db.collection(userID!).getDocuments(completion: { (QuerySnapshot, err) in
-//            if let err = err {
-//                    print("Error getting documents: \(err)")
-//                } else {
-//                    for document in QuerySnapshot!.documents {
-//                        print("\(document.documentID) => \(document.data())")
-//                    }
-//                }
-//        })
     }
     
     @objc func didTapNewTaskButton() {
         delegate?.didTapNewTaskButton()
+    }
+    
+    @IBAction func unwindToTimelineViewController(segue: UIStoryboardSegue) {
     }
 }

@@ -5,19 +5,42 @@
 //  Created by Kent Waxman on 11/26/21.
 //
 
+import Firebase
 import Foundation
-import SwiftUI
+import UIKit
+
+struct Task {
+    var taskName: String
+    var milestones: [Milestone]
+}
+
+struct Milestone {
+    var milestoneName: String
+    var milestoneDueDate: Date
+    var milestoneDifficultyRating: Int
+}
 
 class MilestoneViewController: UITableViewController {
     static let milestoneCellIdentifier = "milestoneCell"
     static let addMilestoneCellIdentifier = "addMilestoneCell"
     
+    var taskName = ""
     var cellCount = 2
+    
+    //Use this for the amount of cells that the firebase query returns to load
+    //Create DB Reference
+    var db = Firestore.firestore()
+    let userID = Auth.auth().currentUser?.uid
     
     @IBAction func addAnotherMilestone(_ sender: Any) {
         cellCount+=1
         self.tableView.reloadData()
     }
+    
+    @IBAction func submitMilestones(_ sender: Any) {
+        aggregateData()
+    }
+    
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //DO NOT CHANGE- First milestone cell + add new milestone cell cells
@@ -44,6 +67,40 @@ class MilestoneViewController: UITableViewController {
         } else {
             return 43
         }
+    }
+    
+    //pragma mark- HELPER METHODS
+    func aggregateData() {
+        var milestones = [Milestone]()
+        for cell in self.tableView.visibleCells {
+            if (cell.reuseIdentifier == MilestoneViewController.milestoneCellIdentifier) {
+                let tempCell = cell as! MilestoneCell
+                milestones.append(Milestone(milestoneName: tempCell.milestoneTextField.text ?? "",
+                                            milestoneDueDate: tempCell.milestoneDatePicker.date,
+                                            milestoneDifficultyRating: (tempCell.milestoneDifficultyRating.selectedSegmentIndex + 1)))
+            }
+        }
+        pushData(t: Task(taskName: taskName, milestones: milestones))
+    }
+    
+    func pushData(t: Task) {
+        //for query selection + document and collection creation
+        let dbRef = self.db.collection(userID!).document(t.taskName)
+        for milestone in t.milestones {
+            dbRef.collection("milestones").document(milestone.milestoneName).setData(["milestoneName" : milestone.milestoneName,
+                                                                                         "milestoneDueDate" : milestone.milestoneDueDate,
+                                                                                         "milestoneDifficultyRating" : milestone.milestoneDifficultyRating])
+        }
+        self.db.collection(userID!).getDocuments(completion: { (QuerySnapshot, err) in
+            if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    for document in QuerySnapshot!.documents {
+                        print("\(document.documentID) => \(document.data())")
+                    }
+                    self.performSegue(withIdentifier: "unwindToTimeline", sender: self)
+                }
+        })
     }
 }
 
