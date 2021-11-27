@@ -66,6 +66,10 @@ extension ContainerViewController: TimelineViewControllerDelegate {
         toggleSideMenu(completion: nil) //In this case, we don't want a completion handler
     }
     
+    func didTapNewTaskButton() {
+        performSegue(withIdentifier: "timelineToAddTask", sender: self)
+    }
+    
     //This is the actual code for sliding the menu in and out. We input a completion handler in the parameters for when we want the Container View to not only slide the menu in and out, but to optionally change views, etc. if the location that called it needs that (such as clicking on the calendar button in the side menu)
     func toggleSideMenu(completion: (() -> Void)?) {
         //Animate the menu (the way this works is we slide over the top view (Timeline View Controller) and reveal the Side Menu View Controller)

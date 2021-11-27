@@ -13,6 +13,7 @@ import Firebase
 //This allows us to communicate back to the Container View
 protocol TimelineViewControllerDelegate: AnyObject {
     func didTapSideMenuButton()
+    func didTapNewTaskButton()
 }
 
 class TimelineViewController: UITableViewController {
@@ -39,6 +40,10 @@ class TimelineViewController: UITableViewController {
                                                            style: .done,
                                                            target: self,
                                                            action: #selector(didTapSideMenuButton))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"),
+                                                           style: .done,
+                                                           target: self,
+                                                           action: #selector(didTapNewTaskButton))
     }
     
     @objc func didTapSideMenuButton() {
@@ -54,5 +59,9 @@ class TimelineViewController: UITableViewController {
 //                    }
 //                }
 //        })
+    }
+    
+    @objc func didTapNewTaskButton() {
+        delegate?.didTapNewTaskButton()
     }
 }
