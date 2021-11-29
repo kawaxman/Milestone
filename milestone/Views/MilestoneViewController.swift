@@ -9,12 +9,8 @@ import Firebase
 import Foundation
 import UIKit
 
-struct Task {
-    var taskName: String
-    var milestones: [Milestone]
-}
-
 struct Milestone {
+    var taskName: String
     var milestoneName: String
     var milestoneDueDate: Date
     var milestoneDifficultyRating: Int
@@ -75,29 +71,27 @@ class MilestoneViewController: UITableViewController {
         for cell in self.tableView.visibleCells {
             if (cell.reuseIdentifier == MilestoneViewController.milestoneCellIdentifier) {
                 let tempCell = cell as! MilestoneCell
-                milestones.append(Milestone(milestoneName: tempCell.milestoneTextField.text ?? "",
+                milestones.append(Milestone(taskName: taskName,
+                                            milestoneName: tempCell.milestoneTextField.text ?? "",
                                             milestoneDueDate: tempCell.milestoneDatePicker.date,
                                             milestoneDifficultyRating: (tempCell.milestoneDifficultyRating.selectedSegmentIndex + 1)))
             }
         }
-        pushData(t: Task(taskName: taskName, milestones: milestones))
+        pushData(m: milestones)
     }
     
-    func pushData(t: Task) {
+    func pushData(m: [Milestone]) {
         //for query selection + document and collection creation
-        let dbRef = self.db.collection(userID!).document(t.taskName)
-        for milestone in t.milestones {
-            dbRef.collection("milestones").document(milestone.milestoneName).setData(["milestoneName" : milestone.milestoneName,
-                                                                                         "milestoneDueDate" : milestone.milestoneDueDate,
-                                                                                         "milestoneDifficultyRating" : milestone.milestoneDifficultyRating])
-        }
+        for milestone in m {
+            self.db.collection(userID!).document().setData(["taskName" : milestone.taskName,
+                                                            "milestoneName" : milestone.milestoneName,
+                                                            "milestoneDueDate" : milestone.milestoneDueDate,
+                                                            "milestoneDifficultyRating" : milestone.milestoneDifficultyRating])
+    }
         self.db.collection(userID!).getDocuments(completion: { (QuerySnapshot, err) in
             if let err = err {
                     print("Error getting documents: \(err)")
                 } else {
-                    for document in QuerySnapshot!.documents {
-                        print("\(document.documentID) => \(document.data())")
-                    }
                     self.performSegue(withIdentifier: "unwindToTimeline", sender: self)
                 }
         })
