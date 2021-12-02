@@ -94,25 +94,44 @@ class Scheduler {
     var milestoneDict = [String : [Milestone]]()
     
     func queryMilestones() {
+        print("Scheduler running...")
         db.collection(userID!).getDocuments(completion: { [self](querySnapshot, err) in
             if let err = err {
                 print("Error getting documents: \(err)")
             } else {
                 for document in querySnapshot!.documents {
-                    let dataDescription = document.data()
+//                    let dataDescription = document.data()
+//                    print("\(document.documentID) => \(document.data())")
                     //get milestone data
-                    guard let milestoneName = dataDescription["milestoneName"] else { return }
-                    guard let milestoneDifficultyRating = dataDescription["milestoneDifficultyRating"] else { return }
-                    guard let milestoneDueDate = dataDescription["milestoneDueDate"] as? Timestamp else { return }
-                    guard let taskName = dataDescription["taskName"] else { return }
-                    
-                    let collectedMilestone = Milestone(taskName: taskName as! String, milestoneName: milestoneName as! String, milestoneDueDate: milestoneDueDate.dateValue(), milestoneDifficultyRating: milestoneDifficultyRating as! Int)
-                    
-                    if (self.milestoneDict[self.userID!] != nil) {
-                        self.milestoneDict[self.userID!]?.append(collectedMilestone)
-                    } else {
-                        self.milestoneDict[self.userID!] = [collectedMilestone]
+//                    let milestones = document.data()["milestones"] ?? [""] as [Array<Any>]
+//                    let mediaDict = restDict["media"] as! [[String:Any]]
+                    let milestones = document.data()["milestones"] as! [[String:Any]]
+                    for milestone in milestones {
+                        let currentMilestone = Milestone(
+                            projectName: document.documentID,
+                            milestoneName: milestone["milestoneName"] as! String,
+                            milestoneDueDate: (milestone["milestoneDueDate"] as! Timestamp).dateValue(),
+                            milestoneDifficultyRating: milestone["milestoneDifficultyRating"] as! Int)
+                        if (self.milestoneDict[self.userID!] != nil) {
+                            self.milestoneDict[self.userID!]?.append(currentMilestone)
+                        } else {
+                            self.milestoneDict[self.userID!] = [currentMilestone]
+                        }
                     }
+                    print("Milestones Queried:", milestoneDict)
+
+//                    guard let milestoneName = dataDescription["milestoneName"] else { return }
+//                    guard let milestoneDifficultyRating = dataDescription["milestoneDifficultyRating"] else { return }
+//                    guard let milestoneDueDate = dataDescription["milestoneDueDate"] as? Timestamp else { return }
+//                    guard let projectName = dataDescription["projectName"] else { return }
+//
+//                    let collectedMilestone = Milestone(projectName: projectName as! String, milestoneName: milestoneName as! String, milestoneDueDate: milestoneDueDate.dateValue(), milestoneDifficultyRating: milestoneDifficultyRating as! Int)
+//
+//                    if (self.milestoneDict[self.userID!] != nil) {
+//                        self.milestoneDict[self.userID!]?.append(collectedMilestone)
+//                    } else {
+//                        self.milestoneDict[self.userID!] = [collectedMilestone]
+//                    }
                 }
             }
         })

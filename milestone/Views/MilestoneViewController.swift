@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 struct Milestone {
-    var taskName: String
+    var projectName: String
     var milestoneName: String
     var milestoneDueDate: Date
     var milestoneDifficultyRating: Int
@@ -20,7 +20,7 @@ class MilestoneViewController: UITableViewController {
     static let milestoneCellIdentifier = "milestoneCell"
     static let addMilestoneCellIdentifier = "addMilestoneCell"
     
-    var taskName = ""
+    var projectName = ""
     var cellCount = 2
     
     //Use this for the amount of cells that the firebase query returns to load
@@ -71,7 +71,7 @@ class MilestoneViewController: UITableViewController {
         for cell in self.tableView.visibleCells {
             if (cell.reuseIdentifier == MilestoneViewController.milestoneCellIdentifier) {
                 let tempCell = cell as! MilestoneCell
-                milestones.append(Milestone(taskName: taskName,
+                milestones.append(Milestone(projectName: projectName,
                                             milestoneName: tempCell.milestoneTextField.text ?? "",
                                             milestoneDueDate: tempCell.milestoneDatePicker.date,
                                             milestoneDifficultyRating: (tempCell.milestoneDifficultyRating.selectedSegmentIndex + 1)))
@@ -82,12 +82,25 @@ class MilestoneViewController: UITableViewController {
     
     func pushData(m: [Milestone]) {
         //for query selection + document and collection creation
+//        for milestone in m {
+//            self.db.collection(userID!).document().setData(["taskName" : milestone.taskName,
+//                                                            "milestoneName" : milestone.milestoneName,
+//                                                            "milestoneDueDate" : milestone.milestoneDueDate,
+//                                                            "milestoneDifficultyRating" : milestone.milestoneDifficultyRating])
+//        }
+//        self.db.collection(userID!).document(projectName).setData(["milestones" : [:]])
         for milestone in m {
-            self.db.collection(userID!).document().setData(["taskName" : milestone.taskName,
-                                                            "milestoneName" : milestone.milestoneName,
-                                                            "milestoneDueDate" : milestone.milestoneDueDate,
-                                                            "milestoneDifficultyRating" : milestone.milestoneDifficultyRating])
-    }
+            let currentMilestoneData = ["milestoneName": milestone.milestoneName,
+                                        "milestoneDueDate": milestone.milestoneDueDate,
+                                        "milestoneDifficultyRating": milestone.milestoneDifficultyRating] as [String : Any]
+            let db = self.db.collection(userID!).document(projectName)
+            db.setData(["milestones": FieldValue.arrayUnion([currentMilestoneData])], merge: true)
+            { err in
+                if let err = err {
+                    print("Error adding milestone data: \(err)")
+                }
+            }
+        }
         self.db.collection(userID!).getDocuments(completion: { (QuerySnapshot, err) in
             if let err = err {
                     print("Error getting documents: \(err)")
