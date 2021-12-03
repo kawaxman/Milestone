@@ -66,7 +66,7 @@ extension ContainerViewController: TimelineViewControllerDelegate {
         toggleSideMenu(completion: nil) //In this case, we don't want a completion handler
     }
     
-    func didTapNewTaskButton() {
+    func didTapNewProjectButton() {
         performSegue(withIdentifier: "timelineToAddTask", sender: self)
     }
     

@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 struct Milestone {
-    var projectName: String
+//    var projectName: String
     var milestoneName: String
     var milestoneDueDate: Date
     var milestoneDifficultyRating: Int
@@ -20,7 +20,8 @@ class MilestoneViewController: UITableViewController {
     static let milestoneCellIdentifier = "milestoneCell"
     static let addMilestoneCellIdentifier = "addMilestoneCell"
     
-    var projectName = ""
+    var projectName = String()
+    var projectDueDate = Date()
     var cellCount = 2
     
     //Use this for the amount of cells that the firebase query returns to load
@@ -71,8 +72,7 @@ class MilestoneViewController: UITableViewController {
         for cell in self.tableView.visibleCells {
             if (cell.reuseIdentifier == MilestoneViewController.milestoneCellIdentifier) {
                 let tempCell = cell as! MilestoneCell
-                milestones.append(Milestone(projectName: projectName,
-                                            milestoneName: tempCell.milestoneTextField.text ?? "",
+                milestones.append(Milestone(milestoneName: tempCell.milestoneTextField.text ?? "",
                                             milestoneDueDate: tempCell.milestoneDatePicker.date,
                                             milestoneDifficultyRating: (tempCell.milestoneDifficultyRating.selectedSegmentIndex + 1)))
             }
@@ -94,7 +94,8 @@ class MilestoneViewController: UITableViewController {
                                         "milestoneDueDate": milestone.milestoneDueDate,
                                         "milestoneDifficultyRating": milestone.milestoneDifficultyRating] as [String : Any]
             let db = self.db.collection(userID!).document(projectName)
-            db.setData(["milestones": FieldValue.arrayUnion([currentMilestoneData])], merge: true)
+            db.setData(["projectDueDate": projectDueDate,
+                        "milestones": FieldValue.arrayUnion([currentMilestoneData])], merge: true)
             { err in
                 if let err = err {
                     print("Error adding milestone data: \(err)")
