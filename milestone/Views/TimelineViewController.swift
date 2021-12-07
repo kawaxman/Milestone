@@ -22,17 +22,16 @@ class TimelineViewController: UITableViewController {
     //This is a weak variable because it prevents memory leaks
     weak var delegate: TimelineViewControllerDelegate?
     
-    let scheduler = Scheduler()
-
-    
-//    @IBOutlet var milestoneName: UILabel!
-//    @IBAction func refreshMilestoneButton(_ sender: Any) {
-//        milestoneName.text = "Milestone1"
-//    }
+    var scheduler = Scheduler()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Timeline"
+    
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        
+        self.tableView.register(TimelineCell.self, forCellReuseIdentifier: TimelineViewController.timelineCellIdentifier)
         //Based from afformentioned youtube video on side bar (normally We do this in the story board view)
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "gearshape"),
                                                            style: .done,
@@ -42,6 +41,10 @@ class TimelineViewController: UITableViewController {
                                                            style: .done,
                                                            target: self,
                                                            action: #selector(refreshTimeline))
+
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
         refreshTimeline()
     }
     
@@ -64,7 +67,6 @@ class TimelineViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        tableView.register(TimelineCell.self, forCellReuseIdentifier: TimelineViewController.timelineCellIdentifier)
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TimelineViewController.timelineCellIdentifier, for: indexPath) as? TimelineCell else {
             fatalError("Unable to dequeue Timelinecell")
         }
@@ -92,11 +94,12 @@ class TimelineViewController: UITableViewController {
     
     @objc func refreshTimeline() {
         scheduler.queryMilestones()
+        self.tableView.reloadData()
     }
 }
 
 class TimelineCell: UITableViewCell {
-    @IBOutlet weak var milestoneLabel: UILabel!
+    @IBOutlet weak var milestoneLabel: UILabel?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -107,14 +110,21 @@ class TimelineCell: UITableViewCell {
     }
 }
 
+struct SchedulerStruct {
+    //Dictionary key is userID
+    var projectDict: [String: (Any, [Milestone])] = [:] //a project name (first string) has its own due date (Any) and multiple Milestones inside of it ([Milestone])
+}
+
 class Scheduler {
     var db = Firestore.firestore()
     let userID = Auth.auth().currentUser?.uid
     
-    //Dictionary key is userID
-    var projectDict = [String: (Any, [Milestone])]() //a project name (first string) has its own due date (Any) and multiple Milestones inside of it ([Milestone])
-//    var milestoneDict = [String : [Milestone]]()
+    var schedulerStruct: SchedulerStruct
     
+    init() {
+        self.schedulerStruct = SchedulerStruct()
+    }
+        
     func queryMilestones() {
         print("Scheduler running...")
         db.collection(userID!).getDocuments(completion: { [self](querySnapshot, err) in
@@ -122,61 +132,36 @@ class Scheduler {
                 print("Error getting documents: \(err)")
             } else {
                 for document in querySnapshot!.documents {
-//                    let dataDescription = document.data()
-//                    print("\(document.documentID) => \(document.data())")
-                    //get milestone data
-//                    let milestones = document.data()["milestones"] ?? [""] as [Array<Any>]
-//                    let mediaDict = restDict["media"] as! [[String:Any]]
                     let projectDueDate = document.data()["projectDueDate"] ?? Date()
                     var milestones = [Milestone]()
-                    //if there are no milestones, don't return anything
                     guard let unparsedMilestones = document.data()["milestones"] as? [[String:Any]] else {
                         print("No milestones were found in \(document.documentID)")
                         return
                     }
                     for milestone in unparsedMilestones {
                         let currentMilestone = Milestone(
-//                            projectName: document.documentID,
                             milestoneName: milestone["milestoneName"] as! String,
                             milestoneDueDate: (milestone["milestoneDueDate"] as! Timestamp).dateValue(),
                             milestoneDifficultyRating: milestone["milestoneDifficultyRating"] as! Int)
                         milestones.append(currentMilestone)
-//                        if (self.milestoneDict[self.userID!] != nil) {
-//                            self.milestoneDict[self.userID!]?.append(currentMilestone)
-//                        } else {
-//                            self.milestoneDict[self.userID!] = [currentMilestone]
-//                        }
                     }
-                    projectDict[document.documentID] = (projectDueDate, milestones)
-
-//                    guard let milestoneName = dataDescription["milestoneName"] else { return }
-//                    guard let milestoneDifficultyRating = dataDescription["milestoneDifficultyRating"] else { return }
-//                    guard let milestoneDueDate = dataDescription["milestoneDueDate"] as? Timestamp else { return }
-//                    guard let projectName = dataDescription["projectName"] else { return }
-//
-//                    let collectedMilestone = Milestone(projectName: projectName as! String, milestoneName: milestoneName as! String, milestoneDueDate: milestoneDueDate.dateValue(), milestoneDifficultyRating: milestoneDifficultyRating as! Int)
-//
-//                    if (self.milestoneDict[self.userID!] != nil) {
-//                        self.milestoneDict[self.userID!]?.append(collectedMilestone)
-//                    } else {
-//                        self.milestoneDict[self.userID!] = [collectedMilestone]
-//                    }
+                    schedulerStruct.projectDict[document.documentID] = (projectDueDate, milestones)
                 }
-                print("Projects Queried:", projectDict) //for some reason, the projectDueDate doesn't show up as a "date" datatype but is just fine in Firebase... weird
-                print("-----STRIPPED MILESTONES----\n", sortMilestones())
+                print("Projects Queried:", schedulerStruct.projectDict) //for some reason, the projectDueDate doesn't show up as a "date" datatype but is just fine in Firebase... weird
             }
         })
     }
     
     //helper methods
     func getProjectDictCount() -> Int {
-        return projectDict.count
+        print(schedulerStruct.projectDict.count)
+        return schedulerStruct.projectDict.count
     }
     
     //returns the sorted milestones from the projectDict (CURRENTLY NO SORTING IS DONE)
     func sortMilestones() -> [Milestone] {
         var sortedMilestones: [Milestone] = []
-        for (_, value) in projectDict {
+        for (_, value) in schedulerStruct.projectDict {
             sortedMilestones.append(contentsOf: value.1)
         }
         return sortedMilestones

@@ -51,6 +51,8 @@ class ContainerViewController: UIViewController {
         
         // Timeline View (Loaded on top of the Side Menu)
         timelineVC.delegate = self //this is where we connect the two views
+        //refresh timeline before the timelineVC is added as a child
+        timelineVC.refreshTimeline()
         let navVC = UINavigationController(rootViewController: timelineVC) //this wraps our timeline view in a navigation view, since we want a nav bar at the top
         addChild(navVC)
         view.addSubview(navVC.view)
