@@ -343,8 +343,22 @@ class Scheduler {
         for (_, value) in schedulerStruct.projectDict {
             milestones.append(contentsOf: value.1)
         }
+        milestones.sort {
+            $0.getMilestoneRankingAlgorithmIndex(milestone: $0) < $1.getMilestoneRankingAlgorithmIndex(milestone: $1)
+        }
         milestoneCount = milestones.count
-        
         timelineTableView.reloadData() //reload the timeline cells once we have sorted the milestones and the data is ready!
+    }
+}
+
+extension Milestone {
+    //MARK: - SORTING ALGORITHM 1
+    // Create interval from current date to milestone due date
+    // Milestone Difficulty Rating / Interval Time
+    
+    func getMilestoneRankingAlgorithmIndex(milestone: Milestone) -> Double {
+        let timeInterval = milestone.milestoneDueDate.timeIntervalSinceNow
+//        print("\(milestone.milestoneName): Milestone Difficulty Rating: \(milestone.milestoneDifficultyRating) TimeInterval: \(Int(timeInterval)) Ranking Index - \(Double(timeInterval) / Double(milestone.milestoneDifficultyRating))")
+        return Double(timeInterval)/Double(milestone.milestoneDifficultyRating)
     }
 }
