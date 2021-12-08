@@ -15,8 +15,20 @@ class StartViewController : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loginButton.tintColor = .systemPurple
-        signUpButton.tintColor = .systemPurple
+        
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        
+        //BUTTON UI
+        loginButton.backgroundColor = .clear
+        loginButton.layer.cornerRadius = 5
+        loginButton.layer.borderWidth = 2
+        loginButton.layer.borderColor = UIColor.white.cgColor
+        
+        signUpButton.backgroundColor = .clear
+        signUpButton.layer.cornerRadius = 5
+        signUpButton.layer.borderWidth = 2
+        signUpButton.layer.borderColor = UIColor.white.cgColor
     }
     
     @IBAction func loginButtonPressed(_ sender: Any) {

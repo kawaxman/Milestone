@@ -20,9 +20,8 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loginButton.tintColor = .systemPurple
-        backBar.leftBarButtonItem?.tintColor = .systemPurple
-        backBar.backBarButtonItem?.tintColor = .systemPurple //NOT WORKING???
+        loginButton.tintColor = .white
+        loginButton.backgroundColor = .clear
     }
     
     @IBAction func loginAction(_ sender: Any) {

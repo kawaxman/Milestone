@@ -76,17 +76,51 @@ class MilestoneViewController: UITableViewController {
     
     //pragma mark- HELPER METHODS
     func aggregateData() {
+        var checksPassed = true
+        var milestoneSet = Set<String>()
         var milestones = [Milestone]()
         for cell in self.tableView.visibleCells {
             if (cell.reuseIdentifier == MilestoneViewController.milestoneCellIdentifier) {
                 let tempCell = cell as! MilestoneCell
-                milestones.append(Milestone(projectName: "",
-                                            milestoneName: tempCell.milestoneTextField.text ?? "",
-                                            milestoneDueDate: tempCell.milestoneDatePicker.date,
-                                            milestoneDifficultyRating: (tempCell.milestoneDifficultyRating.selectedSegmentIndex + 1)))
+                //check if all milestones and projectName has been inputted (not empty)
+                if (tempCell.milestoneTextField.text == "" || projectName == "") {
+                    checksPassed = false
+                    let alertController = UIAlertController(title: "Empty Field", message: "Please check again", preferredStyle: .alert)
+                    let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                                   
+                     alertController.addAction(defaultAction)
+                     self.present(alertController, animated: true, completion: nil)
+                } else {
+                    //check if milestone has passed
+                    if (Int(tempCell.milestoneDatePicker.date.timeIntervalSinceNow) < 0) {
+                        checksPassed = false
+                        let alertController = UIAlertController(title: "Time Already Passed", message: "One of your milestone's due dates has already happened. Please check again.", preferredStyle: .alert)
+                        let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                                       
+                         alertController.addAction(defaultAction)
+                         self.present(alertController, animated: true, completion: nil)
+                    } else {
+                        //check no overwriting milestone names
+                        if (!milestoneSet.insert(tempCell.milestoneTextField.text ?? "").inserted) {
+                            checksPassed = false
+                            let alertController = UIAlertController(title: "Same Milestone Name", message: "At least two milestones have the same name. Please check and fix.", preferredStyle: .alert)
+                            let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                                           
+                             alertController.addAction(defaultAction)
+                             self.present(alertController, animated: true, completion: nil)
+                        } else {
+                            milestones.append(Milestone(projectName: "",
+                                                        milestoneName: tempCell.milestoneTextField.text ?? "",
+                                                        milestoneDueDate: tempCell.milestoneDatePicker.date,
+                                                        milestoneDifficultyRating: (tempCell.milestoneDifficultyRating.selectedSegmentIndex + 1)))
+                        }
+                    }
+                }
             }
         }
-        pushData(m: milestones)
+        if (checksPassed) {
+            pushData(m: milestones)
+        }
     }
     
     func pushData(m: [Milestone]) {

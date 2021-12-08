@@ -19,8 +19,8 @@ class SignUpViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        signUpButton.tintColor = .systemPurple
-        navigationItem.backBarButtonItem?.tintColor = .systemPurple
+        signUpButton.tintColor = .white
+        signUpButton.backgroundColor = .clear
     }
     
     @IBAction func signUpAction(_ sender: Any) {

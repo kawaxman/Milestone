@@ -48,6 +48,7 @@ class TimelineViewController: UITableViewController {
         navigationItem.leftBarButtonItem?.tintColor = accentColor
         navigationItem.rightBarButtonItem?.tintColor = accentColor
         timelineTableView = tableView
+        tableView.tableFooterView = UIView()
         refreshTimeline()
         self.tableView.reloadData()
     }
@@ -179,25 +180,28 @@ class TimelineCell: UITableViewCell {
     private let milestoneNameLabel: UILabel = {
         let label = UILabel()
         label.textColor = primaryTextColor
-        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.font = UIFont(name: "Futura-Medium", size: 16)
         return label
     }()
     
     private let projectNameLabel: UILabel = {
         let label = UILabel()
         label.textColor = secondaryTextColor
+        label.font = UIFont(name: "Futura-Medium", size: 16)
         return label
     }()
     
     private let milestoneDifficultyLabel: UILabel = {
         let label = UILabel()
         label.textColor = primaryTextColor
+        label.font = UIFont(name: "Futura-Medium", size: 16)
         return label
     }()
     
     private let milestoneDueDateLabel: UILabel = {
         let label = UILabel()
         label.textColor = primaryTextColor
+        label.font = UIFont(name: "Futura-Medium", size: 16)
         return label
     }()
     

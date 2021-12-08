@@ -32,7 +32,7 @@ class ContainerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = secondColor
+//        view.backgroundColor = secondColor
 //        self.view.backgroundColor = .systemRed
         
         //Found from youtube video on adding a side menu bar: youtube.com/watch?v=1hzPFAYcuUI
@@ -42,7 +42,6 @@ class ContainerViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
-        view.backgroundColor = secondColor
     }
 
     private func addChildVCs() {
@@ -62,6 +61,7 @@ class ContainerViewController: UIViewController {
         view.addSubview(navVC.view)
         navVC.didMove(toParent: self) //The timelineView is now a child of the container controller
         self.navVC = navVC //set the local navVC variable to the navVC we wrapped the timeline in so that we can make the nav bar move with the side menu animation
+        self.navVC?.navigationBar.shadowImage = UIImage()
     }
 }
 
