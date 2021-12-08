@@ -195,8 +195,18 @@ extension ContainerViewController: SideMenuViewControllerDelegate {
     func logout() {
         do {
             try Auth.auth().signOut()
+            if let storyboard = self.storyboard {
+                let vc = storyboard.instantiateViewController(withIdentifier: "homeNavigationController") as! UINavigationController
+                vc.modalPresentationStyle = .fullScreen
+                self.present(vc, animated: false, completion: nil)
+            }
         } catch let err {
-            print(err)
+            print("Failed to sign out with error:",err)
+            let alertController = UIAlertController(title: "Sign Out Error", message: err.localizedDescription, preferredStyle: .alert)
+            let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                           
+             alertController.addAction(defaultAction)
+             self.present(alertController, animated: true, completion: nil)
         }
             
         

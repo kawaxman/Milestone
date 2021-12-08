@@ -113,6 +113,8 @@ class TimelineViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: false)
     }
     
+    //Helper functions
+    
     @objc func refreshTimeline() {
 //        DispatchQueue.main.async {
 //            self.scheduler.queryMilestones()
@@ -137,7 +139,7 @@ class TimelineCell: UITableViewCell {
 }
 
 struct SchedulerStruct {
-    //Dictionary key is userID
+    //Dictionary key is userID#imageLiteral(resourceName: "simulator_screenshot_3E35AA14-ADD2-4B5B-9FDB-92A049EA77A4.png")
     var projectDict: [String: (Any, [Milestone])] = [:] //a project name (first string) has its own due date (Any) and multiple Milestones inside of it ([Milestone])
 }
 
