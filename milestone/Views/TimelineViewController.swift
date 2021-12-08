@@ -85,10 +85,6 @@ class TimelineViewController: UITableViewController {
             }
             cell.milestone = milestones[indexPath.row]
             cell.backgroundColor = mainColor
-    //        print("Cell Milestone Label:",milestones[indexPath.row].milestoneName)
-    //        cell.contentView.backgroundColor = UIColor(red: 255/255.0, green: 100/255.0, blue: 100/255.0, alpha: 1)
-    //        cell.backgroundColor = mainColor
-    //        cell.textLabel?.text = milestones[indexPath.row].milestoneName
             return cell
         } else {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: TimelineViewController.addProjectCellIdentifier, for: indexPath) as? AddProjectCell else {
@@ -129,15 +125,8 @@ class TimelineViewController: UITableViewController {
     }
     
     //Helper functions
-    
     @objc func refreshTimeline() {
-//        DispatchQueue.main.async {
-//            self.scheduler.queryMilestones()
-//            self.tableView.reloadData()
-//        }
-        scheduler.queryMilestones()
-//        self.tableView.reloadData()
-//        self.tableView.reloadData()
+        scheduler.queryMilestones() //this happens sequentially, so that it queries the miletones, sorts them, and then updates the timeline AFTER that is all done
     }
 }
 
@@ -149,10 +138,11 @@ class TimelineViewController: UITableViewController {
 class TimelineCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
-        milestoneNameLabel.textColor = primaryTextColor
-        projectNameLabel.textColor = secondaryTextColor
-        milestoneDifficultyLabel.textColor = primaryTextColor
-        milestoneDueDateLabel.textColor = primaryTextColor
+        //Attempt to change the cells based on Dark Mode, but this doesn't work since the subviews don't update with the parent view and the NIBs act strange
+//        milestoneNameLabel.textColor = primaryTextColor
+//        projectNameLabel.textColor = secondaryTextColor
+//        milestoneDifficultyLabel.textColor = primaryTextColor
+//        milestoneDueDateLabel.textColor = primaryTextColor
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -179,28 +169,28 @@ class TimelineCell: UITableViewCell {
     
     private let milestoneNameLabel: UILabel = {
         let label = UILabel()
-        label.textColor = primaryTextColor
+        label.textColor = .systemPurple
         label.font = UIFont(name: "Futura-Medium", size: 16)
         return label
     }()
     
     private let projectNameLabel: UILabel = {
         let label = UILabel()
-        label.textColor = secondaryTextColor
+        label.textColor = UIColor(red: 33/255.0, green: 33/255.0, blue: 33/255.0, alpha: 1) //start dark gray
         label.font = UIFont(name: "Futura-Medium", size: 16)
         return label
     }()
     
     private let milestoneDifficultyLabel: UILabel = {
         let label = UILabel()
-        label.textColor = primaryTextColor
+        label.textColor = .systemPurple
         label.font = UIFont(name: "Futura-Medium", size: 16)
         return label
     }()
     
     private let milestoneDueDateLabel: UILabel = {
         let label = UILabel()
-        label.textColor = primaryTextColor
+        label.textColor = .systemPurple
         label.font = UIFont(name: "Futura-Medium", size: 16)
         return label
     }()
@@ -252,7 +242,7 @@ class AddProjectCell: UITableViewCell {
     private let addProjectButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "plus"), for: .normal)
-        button.tintColor = .systemBlue
+        button.tintColor = .systemPurple
         return button
     }()
 
