@@ -20,6 +20,7 @@ var timelineTableView: UITableView = UITableView()
 
 class TimelineViewController: UITableViewController {
     static var timelineCellIdentifier = "timelineCell"
+    static var addProjectCellIdentifier = "addProjectCell"
     
     //This is a weak variable because it prevents memory leaks
     weak var delegate: TimelineViewControllerDelegate?
@@ -33,7 +34,8 @@ class TimelineViewController: UITableViewController {
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
-        self.tableView.register(TimelineCell.self, forCellReuseIdentifier: "timelineCell")
+        self.tableView.register(TimelineCell.self, forCellReuseIdentifier: TimelineViewController.timelineCellIdentifier)
+        self.tableView.register(AddProjectCell.self, forCellReuseIdentifier: TimelineViewController.addProjectCellIdentifier)
         //Based from afformentioned youtube video on side bar (normally We do this in the story board view)
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "gearshape"),
                                                            style: .done,
@@ -49,14 +51,6 @@ class TimelineViewController: UITableViewController {
         refreshTimeline()
         self.tableView.reloadData()
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-//        refreshTimeline()
-    }
-    
-//    @objc func passTableView() {
-//        delegate?.self.tableView
-//    }
     
     @objc func didTapSideMenuButton() {
         delegate?.didTapSideMenuButton()
@@ -78,39 +72,52 @@ class TimelineViewController: UITableViewController {
     
     //Loading ALL TIMELINE CELLS
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return scheduler.getMilestoneCount()
+        //DO NOT CHANGE - Milestones Cells + Add Milestone Cell
+        return (scheduler.getMilestoneCount() + 1)
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let milestones = scheduler.getMilestones()
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "timelineCell", for: indexPath) as? TimelineCell else {
-            fatalError("Unable to dequeue Timelinecell")
+        if indexPath.row != (tableView.numberOfRows(inSection: tableView.numberOfSections - 1) - 1){
+            let milestones = scheduler.getMilestones()
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "timelineCell", for: indexPath) as? TimelineCell else {
+                fatalError("Unable to dequeue Timelinecell")
+            }
+            cell.milestone = milestones[indexPath.row]
+            cell.backgroundColor = mainColor
+    //        print("Cell Milestone Label:",milestones[indexPath.row].milestoneName)
+    //        cell.contentView.backgroundColor = UIColor(red: 255/255.0, green: 100/255.0, blue: 100/255.0, alpha: 1)
+    //        cell.backgroundColor = mainColor
+    //        cell.textLabel?.text = milestones[indexPath.row].milestoneName
+            return cell
+        } else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: TimelineViewController.addProjectCellIdentifier, for: indexPath) as? AddProjectCell else {
+                fatalError("unable to dequeue AddProjectCell")
+            }
+            cell.delegate = self.delegate
+            return cell
         }
-        cell.milestone = milestones[indexPath.row]
-        cell.backgroundColor = mainColor
-//        print("Cell Milestone Label:",milestones[indexPath.row].milestoneName)
-//        cell.contentView.backgroundColor = UIColor(red: 255/255.0, green: 100/255.0, blue: 100/255.0, alpha: 1)
-//        cell.backgroundColor = mainColor
-//        cell.textLabel?.text = milestones[indexPath.row].milestoneName
-        return cell
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
+        if indexPath.row != (tableView.numberOfRows(inSection: tableView.numberOfSections - 1) - 1){
+            return 100
+        } else {
+            return 43
+        }
     }
     
     //setting up the footer for the "Add New Project" button
-    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 50))
-        footerView.backgroundColor = secondColor.withAlphaComponent(1) //if we want it to be transparent, change alpha below 1
-        let button = UIButton()
-        button.setImage(UIImage(systemName: "plus"), for: .normal)
-        button.addTarget(self, action: #selector(didTapNewProjectButton), for: .touchUpInside)
-        button.frame = CGRect(x: footerView.center.x - 25, y: 0, width: 50, height: 50)
-        button.tintColor = accentColor
-        footerView.addSubview(button)
-        return footerView
-    }
+//    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+//        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 50))
+//        footerView.backgroundColor = secondColor.withAlphaComponent(1) //if we want it to be transparent, change alpha below 1
+//        let button = UIButton()
+//        button.setImage(UIImage(systemName: "plus"), for: .normal)
+//        button.addTarget(self, action: #selector(didTapNewProjectButton), for: .touchUpInside)
+//        button.frame = CGRect(x: footerView.center.x - 25, y: 0, width: 50, height: 50)
+//        button.tintColor = accentColor
+//        footerView.addSubview(button)
+//        return footerView
+//    }
     
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 50
@@ -219,6 +226,56 @@ class TimelineCell: UITableViewCell {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+}
+
+class AddProjectCell: UITableViewCell {
+    
+    //This is a weak variable because it prevents memory leaks
+    weak var delegate: TimelineViewControllerDelegate?
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+    }
+    
+    @objc func didTapNewProjectButton() {
+        delegate?.didTapNewProjectButton()
+    }
+    
+    private let addProjectButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "plus"), for: .normal)
+        button.tintColor = .systemBlue
+        return button
+    }()
+
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        contentView.addSubview(addProjectButton)
+        addProjectButton.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 5, paddingLeft: 5, paddingBottom: 5, paddingRight: 5, width: 0, height: 0, enableInsets: false)
+        addProjectButton.addTarget(self, action: #selector(didTapNewProjectButton), for: .touchUpInside)
+
+
+//        let stackView = UIStackView(arrangedSubviews: [milestoneNameLabel, projectNameLabel])
+//        stackView.distribution = .equalSpacing
+//        stackView.axis = .vertical
+//        stackView.spacing = 5
+//        addSubview(stackView)
+//        stackView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 5, paddingLeft: 5, paddingBottom: 15, paddingRight: 5, width: 0, height: 0, enableInsets: false)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+//    let button = UIButton()
+//    button.setImage(UIImage(systemName: "plus"), for: .normal)
+//    button.addTarget(self, action: #selector(didTapNewProjectButton), for: .touchUpInside)
+//    button.frame = CGRect(x: footerView.center.x - 25, y: 0, width: 50, height: 50)
+//    button.tintColor = accentColor
+//    footerView.addSubview(button)
 }
 
 struct SchedulerStruct {
