@@ -7,8 +7,12 @@
 import UIKit
 import SwiftUI
 
-var mainColor = UIColor(red: 200/255.0, green: 200/255.0, blue: 200/255.0, alpha: 1)
-var secondColor = UIColor(red: 255/255.0, green: 255/255.0, blue: 255/255.0, alpha: 1)
+var mainColor = UIColor(red: 255/255.0, green: 255/255.0, blue: 255/255.0, alpha: 1) //start white
+var secondColor = UIColor(red: 200/255.0, green: 200/255.0, blue: 200/255.0, alpha: 1) //start light gray
+var accentColor: UIColor = .systemPurple
+var primaryTextColor: UIColor = .systemPurple
+//var primaryTextColor = UIColor(red: 255/255.0, green: 0/255.0, blue: 0/255.0, alpha: 1) //start black
+var secondaryTextColor = UIColor(red: 33/255.0, green: 33/255.0, blue: 33/255.0, alpha: 1) //start dark gray
 var darkMode = false
 var sideMenuTableView = UITableView()
 
@@ -60,7 +64,7 @@ class SideMenuViewController: UIViewController, UITableViewDelegate, UITableView
         //These next two lines allow the table view to
         tableView.delegate = self
         tableView.dataSource = self
-        view.backgroundColor = mainColor
+        view.backgroundColor = secondColor
     }
     
     //This gives our Table View a frame within the Side Menu View
@@ -78,12 +82,12 @@ class SideMenuViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //This goes through all cells and inputs their corresponding value in the SideMenuOptions cases
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        cell.backgroundColor = secondColor
+        cell.contentView.backgroundColor = secondColor
         cell.textLabel?.text = SideMenuOptions.allCases[indexPath.row].rawValue
-        cell.textLabel?.textColor = .white
+        cell.textLabel?.textColor = accentColor
         cell.imageView?.image = UIImage(systemName: SideMenuOptions.allCases[indexPath.row].imageName) //This gets each image from the SideMenuOptions and put the corresponding image into each cell
-        cell.imageView?.tintColor = .white //This makes the images match the textß
-        cell.backgroundColor = mainColor
-        cell.contentView.backgroundColor = mainColor
+        cell.imageView?.tintColor = accentColor //This makes the images match the textß
         return cell
     }
     

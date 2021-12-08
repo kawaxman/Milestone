@@ -17,6 +17,12 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var reenterPasswordTextField: UITextField!
     @IBOutlet weak var signUpButton: UIButton!
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        signUpButton.tintColor = .systemPurple
+        navigationItem.backBarButtonItem?.tintColor = .systemPurple
+    }
+    
     @IBAction func signUpAction(_ sender: Any) {
         if (passwordTextField.text != reenterPasswordTextField.text) {
             let alertController = UIAlertController(title: "Password Incorrect", message: "Please re-type password", preferredStyle: .alert)

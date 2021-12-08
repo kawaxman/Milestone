@@ -13,6 +13,12 @@ class StartViewController : UIViewController {
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var signUpButton: UIButton!
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        loginButton.tintColor = .systemPurple
+        signUpButton.tintColor = .systemPurple
+    }
+    
     @IBAction func loginButtonPressed(_ sender: Any) {
         self.performSegue(withIdentifier: "startToLogin", sender: self)
     }

@@ -17,6 +17,14 @@ struct Milestone {
 }
 
 class MilestoneViewController: UITableViewController {
+    @IBOutlet weak var addMilestonesButton: UIBarButtonItem!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        addMilestonesButton.tintColor = accentColor
+        
+    }
+    
     static let milestoneCellIdentifier = "milestoneCell"
     static let addMilestoneCellIdentifier = "addMilestoneCell"
     
@@ -60,7 +68,7 @@ class MilestoneViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row != (tableView.numberOfRows(inSection: tableView.numberOfSections - 1) - 1){
-            return 301
+            return 186
         } else {
             return 43
         }
@@ -119,6 +127,12 @@ class MilestoneCell: UITableViewCell {
     @IBOutlet weak var milestoneDatePicker: UIDatePicker!
     @IBOutlet weak var milestoneDifficultyRating: UISegmentedControl!
     
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//        milestoneDatePicker.anchor(top: nil, left: nil, bottom: nil, right: nil, paddingTop: 5, paddingLeft: 5, paddingBottom: 5, paddingRight: 5, width: 0, height: 0, enableInsets: false)
+//    }
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -129,8 +143,12 @@ class MilestoneCell: UITableViewCell {
 }
 
 class AddMilestoneCell: UITableViewCell {
+    @IBOutlet weak var addMilestoneButton: UIButton!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
+        addMilestoneButton.tintColor = accentColor
+        
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

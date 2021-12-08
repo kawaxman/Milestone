@@ -16,6 +16,14 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var backBar: UINavigationItem!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        loginButton.tintColor = .systemPurple
+        backBar.leftBarButtonItem?.tintColor = .systemPurple
+        backBar.backBarButtonItem?.tintColor = .systemPurple //NOT WORKING???
+    }
     
     @IBAction func loginAction(_ sender: Any) {
         Auth.auth().signIn(withEmail: usernameTextField.text!, password: passwordTextField.text!) { (user, error) in

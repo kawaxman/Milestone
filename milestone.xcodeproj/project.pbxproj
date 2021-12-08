@@ -10,6 +10,7 @@
 		0E39C75727447A4100716B76 /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E39C75627447A4100716B76 /* SideMenuViewController.swift */; };
 		0E39C759274581B900716B76 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E39C758274581B900716B76 /* ContainerViewController.swift */; };
 		0E41F94727459DA1000ED8BB /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E41F94627459DA1000ED8BB /* CalendarViewController.swift */; };
+		0E5D7D382760917300494160 /* ConstraintExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5D7D372760917300494160 /* ConstraintExtension.swift */; };
 		22EE9E5D7AB584E4897A5AD7 /* Pods_milestone_milestoneUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1C875B49C4F0CA6126822B6 /* Pods_milestone_milestoneUITests.framework */; };
 		52001C052751651E00D18EF0 /* ProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52001C042751651E00D18EF0 /* ProjectViewController.swift */; };
 		52001C0727516AFC00D18EF0 /* MilestoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52001C0627516AFC00D18EF0 /* MilestoneViewController.swift */; };
@@ -51,6 +52,7 @@
 		0E39C75627447A4100716B76 /* SideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
 		0E39C758274581B900716B76 /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		0E41F94627459DA1000ED8BB /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
+		0E5D7D372760917300494160 /* ConstraintExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstraintExtension.swift; sourceTree = "<group>"; };
 		32CD89F10EC6E547521288BB /* Pods_milestoneTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_milestoneTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		52001C042751651E00D18EF0 /* ProjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectViewController.swift; sourceTree = "<group>"; };
 		52001C0627516AFC00D18EF0 /* MilestoneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MilestoneViewController.swift; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 		527E2C32273AFFCA00599EE1 = {
 			isa = PBXGroup;
 			children = (
+				0E5D7D372760917300494160 /* ConstraintExtension.swift */,
 				527E2C3D273AFFCA00599EE1 /* milestone */,
 				527E2C54273AFFCB00599EE1 /* milestoneTests */,
 				527E2C5F273AFFCB00599EE1 /* milestoneUITests */,
@@ -444,6 +447,7 @@
 			files = (
 				527E2C74273B326100599EE1 /* SignUpViewController.swift in Sources */,
 				527E2C70273B31FA00599EE1 /* StartViewController.swift in Sources */,
+				0E5D7D382760917300494160 /* ConstraintExtension.swift in Sources */,
 				0E39C759274581B900716B76 /* ContainerViewController.swift in Sources */,
 				527E2C3F273AFFCA00599EE1 /* AppDelegate.swift in Sources */,
 				527E2C76273B327200599EE1 /* TimelineViewController.swift in Sources */,

@@ -43,6 +43,8 @@ class TimelineViewController: UITableViewController {
                                                            style: .done,
                                                            target: self,
                                                            action: #selector(refreshTimeline))
+        navigationItem.leftBarButtonItem?.tintColor = accentColor
+        navigationItem.rightBarButtonItem?.tintColor = accentColor
         timelineTableView = tableView
         refreshTimeline()
         self.tableView.reloadData()
@@ -72,6 +74,9 @@ class TimelineViewController: UITableViewController {
         }
     }
     
+    
+    
+    //Loading ALL TIMELINE CELLS
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return scheduler.getMilestoneCount()
     }
@@ -81,12 +86,12 @@ class TimelineViewController: UITableViewController {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "timelineCell", for: indexPath) as? TimelineCell else {
             fatalError("Unable to dequeue Timelinecell")
         }
+        cell.milestone = milestones[indexPath.row]
+        cell.backgroundColor = mainColor
 //        print("Cell Milestone Label:",milestones[indexPath.row].milestoneName)
 //        cell.contentView.backgroundColor = UIColor(red: 255/255.0, green: 100/255.0, blue: 100/255.0, alpha: 1)
-        cell.backgroundColor = secondColor
-        cell.textLabel?.text = milestones[indexPath.row].milestoneName
-//        cell.milestoneLabel
-        cell.milestoneLabel?.text = "Milestone Label"
+//        cell.backgroundColor = mainColor
+//        cell.textLabel?.text = milestones[indexPath.row].milestoneName
         return cell
     }
     
@@ -97,10 +102,12 @@ class TimelineViewController: UITableViewController {
     //setting up the footer for the "Add New Project" button
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let footerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 50))
-        footerView.backgroundColor = UIColor.clear
-        let button = UIButton(frame: CGRect(x: footerView.center.x, y: 0, width: 50, height: 50))
+        footerView.backgroundColor = secondColor.withAlphaComponent(1) //if we want it to be transparent, change alpha below 1
+        let button = UIButton()
         button.setImage(UIImage(systemName: "plus"), for: .normal)
         button.addTarget(self, action: #selector(didTapNewProjectButton), for: .touchUpInside)
+        button.frame = CGRect(x: footerView.center.x - 25, y: 0, width: 50, height: 50)
+        button.tintColor = accentColor
         footerView.addSubview(button)
         return footerView
     }
@@ -126,15 +133,91 @@ class TimelineViewController: UITableViewController {
     }
 }
 
+
+
+
+//INDIVIDUAL CELLS
+//adapted from https://github.com/kemalekren/Sample-Custom-TableView-Project-/blob/master/Sample_TableView
 class TimelineCell: UITableViewCell {
-    @IBOutlet weak var milestoneLabel: UILabel!
-    
     override func awakeFromNib() {
         super.awakeFromNib()
+        milestoneNameLabel.textColor = primaryTextColor
+        projectNameLabel.textColor = secondaryTextColor
+        milestoneDifficultyLabel.textColor = primaryTextColor
+        milestoneDueDateLabel.textColor = primaryTextColor
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+    }
+    
+    var milestone : Milestone? {
+        //this sets the values of the UI elements we create below based on what is in the struct
+        didSet {
+            milestoneNameLabel.text = milestone?.milestoneName
+            projectNameLabel.text = milestone?.projectName
+            if let diffRatingInt = milestone?.milestoneDifficultyRating {
+                milestoneDifficultyLabel.text = String(diffRatingInt)
+            }
+            
+            let dateFormatter = DateFormatter() // Create Date Formatter
+            dateFormatter.dateStyle = .short //Set Date style
+            dateFormatter.timeStyle = .short //set Time style
+            if let unformattedDate: Date = milestone?.milestoneDueDate { //Convert Date to String
+                milestoneDueDateLabel.text = dateFormatter.string(from: unformattedDate)
+            }
+        }
+    }
+    
+    private let milestoneNameLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = primaryTextColor
+        label.font = UIFont.boldSystemFont(ofSize: 16)
+        return label
+    }()
+    
+    private let projectNameLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = secondaryTextColor
+        return label
+    }()
+    
+    private let milestoneDifficultyLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = primaryTextColor
+        return label
+    }()
+    
+    private let milestoneDueDateLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = primaryTextColor
+        return label
+    }()
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        addSubview(milestoneNameLabel)
+        milestoneNameLabel.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 5, paddingLeft: 5, paddingBottom: 5, paddingRight: 5, width: 0, height: 0, enableInsets: false)
+        
+        addSubview(projectNameLabel)
+        projectNameLabel.anchor(top: milestoneNameLabel.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 5, paddingLeft: 5, paddingBottom: 15, paddingRight: 5, width: 0, height: 0, enableInsets: false)
+        
+        addSubview(milestoneDifficultyLabel)
+        milestoneDifficultyLabel.anchor(top: topAnchor, left: nil, bottom: nil, right: rightAnchor, paddingTop: 5, paddingLeft: 5, paddingBottom: 5, paddingRight: 5, width: 0, height: 0, enableInsets: false)
+        
+        addSubview(milestoneDueDateLabel)
+        milestoneDueDateLabel.anchor(top: milestoneDifficultyLabel.bottomAnchor, left: nil, bottom: nil, right: rightAnchor, paddingTop: 5, paddingLeft: 5, paddingBottom: 5, paddingRight: 5, width: 0, height: 0, enableInsets: false)
+        
+//        let stackView = UIStackView(arrangedSubviews: [milestoneNameLabel, projectNameLabel])
+//        stackView.distribution = .equalSpacing
+//        stackView.axis = .vertical
+//        stackView.spacing = 5
+//        addSubview(stackView)
+//        stackView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 5, paddingLeft: 5, paddingBottom: 15, paddingRight: 5, width: 0, height: 0, enableInsets: false)
+    }
+        
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
 
@@ -179,7 +262,6 @@ class Scheduler {
                 }
 //                print("Projects Queried:", schedulerStruct.projectDict) //for some reason, the projectDueDate doesn't show up as a "date" datatype but is just fine in Firebase... weird
                 sortAndParseMilestones()
-                timelineTableView.reloadData()
             }
         })
     }
@@ -205,5 +287,7 @@ class Scheduler {
             milestones.append(contentsOf: value.1)
         }
         milestoneCount = milestones.count
+        
+        timelineTableView.reloadData() //reload the timeline cells once we have sorted the milestones and the data is ready!
     }
 }

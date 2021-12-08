@@ -32,7 +32,8 @@ class ContainerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemRed
+        view.backgroundColor = secondColor
+//        self.view.backgroundColor = .systemRed
         
         //Found from youtube video on adding a side menu bar: youtube.com/watch?v=1hzPFAYcuUI
         addChildVCs()
@@ -41,6 +42,7 @@ class ContainerViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
+        view.backgroundColor = secondColor
     }
 
     private func addChildVCs() {
@@ -62,6 +64,8 @@ class ContainerViewController: UIViewController {
         self.navVC = navVC //set the local navVC variable to the navVC we wrapped the timeline in so that we can make the nav bar move with the side menu animation
     }
 }
+
+
 
 //This makes the Container View a delegate for the timeline view controller, which allows communication between them
 extension ContainerViewController: TimelineViewControllerDelegate {
@@ -111,6 +115,8 @@ extension ContainerViewController: TimelineViewControllerDelegate {
     }
 }
 
+
+
 //This makes the Container View a delegate for the Side Menu View controller, which allows communication between them
 extension ContainerViewController: SideMenuViewControllerDelegate {
     func didSelect(sideMenuItem: SideMenuViewController.SideMenuOptions) {
@@ -132,17 +138,23 @@ extension ContainerViewController: SideMenuViewControllerDelegate {
             //This will be where we change the colors
             if (darkMode == false) {
                 darkMode = true
-                mainColor = UIColor(red: 33/255.0, green: 33/255.0, blue: 33/255.0, alpha: 1)
-                secondColor = UIColor(red: 200/255.0, green: 200/255.0, blue: 200/255.0, alpha: 1)
+                mainColor = UIColor(red: 150/255.0, green: 150/255.0, blue: 150/255.0, alpha: 1) //gray
+                secondColor = UIColor(red: 33/255.0, green: 33/255.0, blue: 33/255.0, alpha: 1) //dark gray
+                primaryTextColor = UIColor(red: 255/255.0, green: 255/255.0, blue: 255/255.0, alpha: 1) //white
+                secondaryTextColor = UIColor(red: 200/255.0, green: 200/255.0, blue: 200/255.0, alpha: 1) //light gray
                 print("Dark mode on")
             } else {
                 darkMode = false
-                mainColor = UIColor(red: 200/255.0, green: 200/255.0, blue: 200/255.0, alpha: 1)
-                secondColor = UIColor(red: 255/255.0, green: 255/255.0, blue: 255/255.0, alpha: 1)
+                mainColor = UIColor(red: 255/255.0, green: 255/255.0, blue: 255/255.0, alpha: 1) //white
+                secondColor = UIColor(red: 200/255.0, green: 200/255.0, blue: 200/255.0, alpha: 1) //light gray
+                primaryTextColor = UIColor(red: 0/255.0, green: 0/255.0, blue: 0/255.0, alpha: 1) //black
+                secondaryTextColor = UIColor(red: 33/255.0, green: 33/255.0, blue: 33/255.0, alpha: 1) //dark gray
                 print("Dark mode off")
             }
             sideMenuTableView.reloadData()
+//            timelineTableView.reloadRows(at: timelineTableView.indexPathsForVisibleRows!, with: UITableView.RowAnimation.fade) //CELLS DO NOT PROPERLY RELOAD THEIR COLORS
             timelineTableView.reloadData()
+//            timelineTableView.reloadSections([0,0], with: .fade)
             break
         case .logOut:
             //This will be where we logout
