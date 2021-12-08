@@ -16,12 +16,14 @@ protocol TimelineViewControllerDelegate: AnyObject {
     func didTapNewProjectButton()
 }
 
+var timelineTableView: UITableView = UITableView()
+
 class TimelineViewController: UITableViewController {
     static var timelineCellIdentifier = "timelineCell"
     
     //This is a weak variable because it prevents memory leaks
     weak var delegate: TimelineViewControllerDelegate?
-    
+
     var scheduler = Scheduler()
     
     override func viewDidLoad() {
@@ -31,7 +33,7 @@ class TimelineViewController: UITableViewController {
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
-        self.tableView.register(TimelineCell.self, forCellReuseIdentifier: TimelineViewController.timelineCellIdentifier)
+        self.tableView.register(TimelineCell.self, forCellReuseIdentifier: "timelineCell")
         //Based from afformentioned youtube video on side bar (normally We do this in the story board view)
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "gearshape"),
                                                            style: .done,
@@ -41,12 +43,18 @@ class TimelineViewController: UITableViewController {
                                                            style: .done,
                                                            target: self,
                                                            action: #selector(refreshTimeline))
-
+        timelineTableView = tableView
+        refreshTimeline()
+        self.tableView.reloadData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        refreshTimeline()
+//        refreshTimeline()
     }
+    
+//    @objc func passTableView() {
+//        delegate?.self.tableView
+//    }
     
     @objc func didTapSideMenuButton() {
         delegate?.didTapSideMenuButton()
@@ -59,17 +67,26 @@ class TimelineViewController: UITableViewController {
     //Can we make another function that doesn't always refresh the timeline upon a segue?
     @IBAction func unwindToTimelineViewController(segue: UIStoryboardSegue) {
 //        print("revealing timeline again...")
-        refreshTimeline()
+        if (segue.source.isKind(of: MilestoneViewController.self)) {
+            refreshTimeline()
+        }
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return scheduler.getProjectDictCount()
+        return scheduler.getMilestoneCount()
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: TimelineViewController.timelineCellIdentifier, for: indexPath) as? TimelineCell else {
+        let milestones = scheduler.getMilestones()
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "timelineCell", for: indexPath) as? TimelineCell else {
             fatalError("Unable to dequeue Timelinecell")
         }
+//        print("Cell Milestone Label:",milestones[indexPath.row].milestoneName)
+//        cell.contentView.backgroundColor = UIColor(red: 255/255.0, green: 100/255.0, blue: 100/255.0, alpha: 1)
+        cell.backgroundColor = secondColor
+        cell.textLabel?.text = milestones[indexPath.row].milestoneName
+//        cell.milestoneLabel
+        cell.milestoneLabel?.text = "Milestone Label"
         return cell
     }
     
@@ -92,14 +109,23 @@ class TimelineViewController: UITableViewController {
         return 50
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: false)
+    }
+    
     @objc func refreshTimeline() {
+//        DispatchQueue.main.async {
+//            self.scheduler.queryMilestones()
+//            self.tableView.reloadData()
+//        }
         scheduler.queryMilestones()
-        self.tableView.reloadData()
+//        self.tableView.reloadData()
+//        self.tableView.reloadData()
     }
 }
 
 class TimelineCell: UITableViewCell {
-    @IBOutlet weak var milestoneLabel: UILabel?
+    @IBOutlet weak var milestoneLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -118,7 +144,8 @@ struct SchedulerStruct {
 class Scheduler {
     var db = Firestore.firestore()
     let userID = Auth.auth().currentUser?.uid
-    
+    var milestones: [Milestone] = [] //should this list is sorted after a call to "Sort Milestones"
+    var milestoneCount = 0
     var schedulerStruct: SchedulerStruct
     
     init() {
@@ -140,6 +167,7 @@ class Scheduler {
                     }
                     for milestone in unparsedMilestones {
                         let currentMilestone = Milestone(
+                            projectName: document.documentID,
                             milestoneName: milestone["milestoneName"] as! String,
                             milestoneDueDate: (milestone["milestoneDueDate"] as! Timestamp).dateValue(),
                             milestoneDifficultyRating: milestone["milestoneDifficultyRating"] as! Int)
@@ -147,9 +175,19 @@ class Scheduler {
                     }
                     schedulerStruct.projectDict[document.documentID] = (projectDueDate, milestones)
                 }
-                print("Projects Queried:", schedulerStruct.projectDict) //for some reason, the projectDueDate doesn't show up as a "date" datatype but is just fine in Firebase... weird
+//                print("Projects Queried:", schedulerStruct.projectDict) //for some reason, the projectDueDate doesn't show up as a "date" datatype but is just fine in Firebase... weird
+                sortAndParseMilestones()
+                timelineTableView.reloadData()
             }
         })
+    }
+    
+    func getMilestones() -> [Milestone] {
+        return milestones
+    }
+    
+    func getMilestoneCount() -> Int {
+        return milestoneCount
     }
     
     //helper methods
@@ -159,11 +197,11 @@ class Scheduler {
     }
     
     //returns the sorted milestones from the projectDict (CURRENTLY NO SORTING IS DONE)
-    func sortMilestones() -> [Milestone] {
-        var sortedMilestones: [Milestone] = []
+    func sortAndParseMilestones() {
+        milestones.removeAll()
         for (_, value) in schedulerStruct.projectDict {
-            sortedMilestones.append(contentsOf: value.1)
+            milestones.append(contentsOf: value.1)
         }
-        return sortedMilestones
+        milestoneCount = milestones.count
     }
 }

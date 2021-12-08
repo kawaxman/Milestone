@@ -7,6 +7,11 @@
 import UIKit
 import SwiftUI
 
+var mainColor = UIColor(red: 200/255.0, green: 200/255.0, blue: 200/255.0, alpha: 1)
+var secondColor = UIColor(red: 255/255.0, green: 255/255.0, blue: 255/255.0, alpha: 1)
+var darkMode = false
+var sideMenuTableView = UITableView()
+
 //This allows us to communicate back to the Container View
 protocol SideMenuViewControllerDelegate: AnyObject {
     func didSelect(sideMenuItem: SideMenuViewController.SideMenuOptions)
@@ -15,7 +20,7 @@ protocol SideMenuViewControllerDelegate: AnyObject {
 
 class SideMenuViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    let userSecondaryColor = UIColor(red: 33/255.0, green: 33/255.0, blue: 33/255.0, alpha: 1)
+//    let userSecondaryColor = UIColor(red: 33/255.0, green: 33/255.0, blue: 33/255.0, alpha: 1)
     
     weak var delegate: SideMenuViewControllerDelegate?
     
@@ -45,6 +50,7 @@ class SideMenuViewController: UIViewController, UITableViewDelegate, UITableView
         let table = UITableView()
         table.backgroundColor = .systemYellow //We don't want the table view frame to be visible
         table.register(UITableViewCell.self, forCellReuseIdentifier: "cell") //this is the plain table view cell, we can edit this later if we want a different cell type
+        sideMenuTableView = table
         return table
     }()
     
@@ -54,7 +60,7 @@ class SideMenuViewController: UIViewController, UITableViewDelegate, UITableView
         //These next two lines allow the table view to
         tableView.delegate = self
         tableView.dataSource = self
-        view.backgroundColor = userSecondaryColor
+        view.backgroundColor = mainColor
     }
     
     //This gives our Table View a frame within the Side Menu View
@@ -76,8 +82,8 @@ class SideMenuViewController: UIViewController, UITableViewDelegate, UITableView
         cell.textLabel?.textColor = .white
         cell.imageView?.image = UIImage(systemName: SideMenuOptions.allCases[indexPath.row].imageName) //This gets each image from the SideMenuOptions and put the corresponding image into each cell
         cell.imageView?.tintColor = .white //This makes the images match the textß
-        cell.backgroundColor = userSecondaryColor
-        cell.contentView.backgroundColor = userSecondaryColor
+        cell.backgroundColor = mainColor
+        cell.contentView.backgroundColor = mainColor
         return cell
     }
     

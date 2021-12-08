@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 struct Milestone {
-//    var projectName: String
+    var projectName: String
     var milestoneName: String
     var milestoneDueDate: Date
     var milestoneDifficultyRating: Int
@@ -72,7 +72,8 @@ class MilestoneViewController: UITableViewController {
         for cell in self.tableView.visibleCells {
             if (cell.reuseIdentifier == MilestoneViewController.milestoneCellIdentifier) {
                 let tempCell = cell as! MilestoneCell
-                milestones.append(Milestone(milestoneName: tempCell.milestoneTextField.text ?? "",
+                milestones.append(Milestone(projectName: "",
+                                            milestoneName: tempCell.milestoneTextField.text ?? "",
                                             milestoneDueDate: tempCell.milestoneDatePicker.date,
                                             milestoneDifficultyRating: (tempCell.milestoneDifficultyRating.selectedSegmentIndex + 1)))
             }

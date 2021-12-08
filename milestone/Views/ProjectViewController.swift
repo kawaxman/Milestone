@@ -13,7 +13,6 @@ class ProjectViewController: UIViewController {
     @IBOutlet weak var projectInputTextField: UITextField!
     @IBOutlet weak var projectDueDateInput: UIDatePicker!
     @IBOutlet weak var nextButton: UIButton!
-    @IBOutlet weak var cancelButton: UIButton!
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "projectToMilestone" {

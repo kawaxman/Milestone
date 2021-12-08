@@ -5,6 +5,8 @@
 //  Created by Josh Creany on 11/17/21.
 //
 
+import Firebase
+import FirebaseAuth
 import UIKit
 import SwiftUI
 
@@ -69,7 +71,7 @@ extension ContainerViewController: TimelineViewControllerDelegate {
     }
     
     func didTapNewProjectButton() {
-        performSegue(withIdentifier: "timelineToAddTask", sender: self)
+        performSegue(withIdentifier: "timelineToAddProject", sender: self)
     }
     
     //This is the actual code for sliding the menu in and out. We input a completion handler in the parameters for when we want the Container View to not only slide the menu in and out, but to optionally change views, etc. if the location that called it needs that (such as clicking on the calendar button in the side menu)
@@ -128,9 +130,23 @@ extension ContainerViewController: SideMenuViewControllerDelegate {
             //self?.present(UINavigationController(rootViewController: vc), animated: true, completion: nil)
         case .darkMode:
             //This will be where we change the colors
+            if (darkMode == false) {
+                darkMode = true
+                mainColor = UIColor(red: 33/255.0, green: 33/255.0, blue: 33/255.0, alpha: 1)
+                secondColor = UIColor(red: 200/255.0, green: 200/255.0, blue: 200/255.0, alpha: 1)
+                print("Dark mode on")
+            } else {
+                darkMode = false
+                mainColor = UIColor(red: 200/255.0, green: 200/255.0, blue: 200/255.0, alpha: 1)
+                secondColor = UIColor(red: 255/255.0, green: 255/255.0, blue: 255/255.0, alpha: 1)
+                print("Dark mode off")
+            }
+            sideMenuTableView.reloadData()
+            timelineTableView.reloadData()
             break
         case .logOut:
             //This will be where we logout
+            self.logout()
             break
         }
         
@@ -174,5 +190,19 @@ extension ContainerViewController: SideMenuViewControllerDelegate {
         calendarVC.view.removeFromSuperview() //seemingly removes the child view aswell?
         calendarVC.didMove(toParent: nil)
         timelineVC.title = "Timeline"
+    }
+    
+    func logout() {
+        do {
+            try Auth.auth().signOut()
+        } catch let err {
+            print(err)
+        }
+            
+        
+        if let storyboard = self.storyboard {
+            let vc = storyboard.instantiateViewController(withIdentifier: "homeNavigationController") as! UINavigationController
+            self.present(vc, animated: false, completion: nil)
+        }
     }
 }
