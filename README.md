@@ -23,3 +23,6 @@ Add GoogleService-Info.plist: Use the file that we sent you to replace the plist
 Once these instructions are correctly followed, follow this link to run the app:
 <br/>
 https://developer.apple.com/documentation/xcode/running-your-app-in-the-simulator-or-on-a-device
+<br />
+<br />
+LINK TO PRESENTATION OF MILESTONE APP: https://drive.google.com/drive/folders/12zYMfeRYjqKtLreVsSVPcS69AODKOstx?usp=sharing
