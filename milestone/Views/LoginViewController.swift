@@ -9,7 +9,7 @@ import UIKit
 import FirebaseAuth
 import SwiftUI
 
-
+//MARK: - SINGLETON EXAMPLE
 class LoginViewController: UIViewController {
     
     @IBOutlet weak var usernameTextField: UITextField!

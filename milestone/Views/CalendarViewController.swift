@@ -8,6 +8,7 @@
 import UIKit
 import SwiftUI
 
+//MARK: - SINGLETON EXAMPLE
 class CalendarViewController: UIViewController {
 
     override func viewDidLoad() {

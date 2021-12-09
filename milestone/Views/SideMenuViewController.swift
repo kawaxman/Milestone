@@ -21,7 +21,7 @@ protocol SideMenuViewControllerDelegate: AnyObject {
     func didSelect(sideMenuItem: SideMenuViewController.SideMenuOptions)
 }
 
-
+//MARK: - SINGLETON EXAMPLE
 class SideMenuViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
 //    let userSecondaryColor = UIColor(red: 33/255.0, green: 33/255.0, blue: 33/255.0, alpha: 1)

@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 
+//MARK: - SINGLETON EXAMPLE
 class ProjectViewController: UIViewController {
     
     @IBOutlet weak var projectInputTextField: UITextField!

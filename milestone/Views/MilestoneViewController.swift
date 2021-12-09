@@ -25,6 +25,7 @@ class MilestoneViewController: UITableViewController {
         
     }
     
+    //MARK: - SINGLETON EXAMPLE
     static let milestoneCellIdentifier = "milestoneCell"
     static let addMilestoneCellIdentifier = "addMilestoneCell"
     
@@ -52,6 +53,7 @@ class MilestoneViewController: UITableViewController {
         return self.cellCount
     }
     
+    //MARK: - FACTORY EXAMPLE
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row != (tableView.numberOfRows(inSection: tableView.numberOfSections - 1) - 1){
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MilestoneViewController.milestoneCellIdentifier, for: indexPath) as? MilestoneCell else {

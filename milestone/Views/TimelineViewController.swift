@@ -19,6 +19,7 @@ protocol TimelineViewControllerDelegate: AnyObject {
 var timelineTableView: UITableView = UITableView()
 
 class TimelineViewController: UITableViewController {
+    //MARK: - SINGLETON EXAMPLE
     static var timelineCellIdentifier = "timelineCell"
     static var addProjectCellIdentifier = "addProjectCell"
     
@@ -49,6 +50,7 @@ class TimelineViewController: UITableViewController {
         navigationItem.rightBarButtonItem?.tintColor = accentColor
         timelineTableView = tableView
         tableView.tableFooterView = UIView()
+        //MARK: - STRATEGY EXAMPLE
         refreshTimeline()
         self.tableView.reloadData()
     }
@@ -77,6 +79,7 @@ class TimelineViewController: UITableViewController {
         return (scheduler.getMilestoneCount() + 1)
     }
     
+    //MARK: - FACTORY EXAMPLE
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row != (tableView.numberOfRows(inSection: tableView.numberOfSections - 1) - 1){
             let milestones = scheduler.getMilestones()

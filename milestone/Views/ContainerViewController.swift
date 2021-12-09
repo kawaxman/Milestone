@@ -28,6 +28,7 @@ class ContainerViewController: UIViewController {
     let sideMenuVC = SideMenuViewController()
     let timelineVC = TimelineViewController()
     var navVC: UINavigationController?
+    //MARK: - SINGLETON EXAMPLE
     lazy var calendarVC = CalendarViewController()
     
     override func viewDidLoad() {
@@ -64,7 +65,7 @@ class ContainerViewController: UIViewController {
 }
 
 
-
+//MARK: - COMMAND EXAMPLE
 //This makes the Container View a delegate for the timeline view controller, which allows communication between them
 extension ContainerViewController: TimelineViewControllerDelegate {
     //This is like inheritance in a sense, we must implement the "didTapSideMenuButton" in order to conform to the design contract
@@ -181,7 +182,7 @@ extension ContainerViewController: SideMenuViewControllerDelegate {
 //            }
 //        })
     }
-    
+    //MARK: - COMMAND EXAMPLE
     func addCalendar() {
         let vc = calendarVC
         timelineVC.addChild(vc)
@@ -191,6 +192,7 @@ extension ContainerViewController: SideMenuViewControllerDelegate {
         timelineVC.title = vc.title //Since we are keeping the top bar from the timeline view, we need to modify it to match the bar from the calendar view
     }
     
+    //MARK: - COMMAND EXAMPLE
     func resetToTimeline() {
         calendarVC.view.removeFromSuperview() //seemingly removes the child view aswell?
         calendarVC.didMove(toParent: nil)

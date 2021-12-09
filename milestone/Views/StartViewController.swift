@@ -8,7 +8,7 @@
 import UIKit
 import SwiftUI
 
-
+//MARK: - SINGLETON EXAMPLE
 class StartViewController : UIViewController {
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var signUpButton: UIButton!
