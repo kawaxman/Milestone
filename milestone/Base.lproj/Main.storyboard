@@ -290,6 +290,35 @@
             </objects>
             <point key="canvasLocation" x="1051" y="271"/>
         </scene>
+        <!--Calendar View Controller-->
+        <scene sceneID="tnO-Kd-b1A">
+            <objects>
+                <viewController id="Gaq-uO-8Mm" customClass="CalendarViewController" customModule="milestone" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cIR-6G-mAN">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TO BE CONTINUED" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TCF-Yf-Hws">
+                                <rect key="frame" x="115" y="435" width="185" height="26"/>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="67G-if-ZT1"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="67G-if-ZT1" firstAttribute="trailing" secondItem="TCF-Yf-Hws" secondAttribute="trailing" constant="114" id="FID-cI-Jg1"/>
+                            <constraint firstItem="67G-if-ZT1" firstAttribute="bottom" secondItem="TCF-Yf-Hws" secondAttribute="bottom" constant="401" id="G4K-vy-h7D"/>
+                            <constraint firstItem="TCF-Yf-Hws" firstAttribute="top" secondItem="67G-if-ZT1" secondAttribute="top" constant="391" id="YC6-Ba-uPy"/>
+                            <constraint firstItem="TCF-Yf-Hws" firstAttribute="leading" secondItem="67G-if-ZT1" secondAttribute="leading" constant="115" id="YII-AH-XaU"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Glh-MP-cL5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2091" y="271"/>
+        </scene>
         <!--Project View Controller-->
         <scene sceneID="BVq-i7-dg1">
             <objects>

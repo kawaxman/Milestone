@@ -33,6 +33,7 @@ class SideMenuViewController: UIViewController, UITableViewDelegate, UITableView
         case timeline = "Timeline"
         case calendar = "Calendar"
         case darkMode = "Dark Mode"
+        case deleteAllProjects = "Delete All Projects"
         case logOut = "Log Out"
         
         var imageName: String {
@@ -44,6 +45,8 @@ class SideMenuViewController: UIViewController, UITableViewDelegate, UITableView
                 return "calendar"
             case .darkMode:
                 return "moon"
+            case .deleteAllProjects:
+                return "trash"
             case .logOut:
                 return "arrow"
             }
@@ -97,7 +100,6 @@ class SideMenuViewController: UIViewController, UITableViewDelegate, UITableView
         
         //When we select an item, tell the delegate which one we selected and use that to communicate back to the containerViewController
         let item = SideMenuOptions.allCases[indexPath.row]
-//        print("Item/View selected: ",item)
         delegate?.didSelect(sideMenuItem: item)
     }
 }

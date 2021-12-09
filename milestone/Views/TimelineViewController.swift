@@ -103,19 +103,6 @@ class TimelineViewController: UITableViewController {
         }
     }
     
-    //setting up the footer for the "Add New Project" button
-//    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-//        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 50))
-//        footerView.backgroundColor = secondColor.withAlphaComponent(1) //if we want it to be transparent, change alpha below 1
-//        let button = UIButton()
-//        button.setImage(UIImage(systemName: "plus"), for: .normal)
-//        button.addTarget(self, action: #selector(didTapNewProjectButton), for: .touchUpInside)
-//        button.frame = CGRect(x: footerView.center.x - 25, y: 0, width: 50, height: 50)
-//        button.tintColor = accentColor
-//        footerView.addSubview(button)
-//        return footerView
-//    }
-    
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 50
     }
@@ -138,11 +125,6 @@ class TimelineViewController: UITableViewController {
 class TimelineCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
-        //Attempt to change the cells based on Dark Mode, but this doesn't work since the subviews don't update with the parent view and the NIBs act strange
-//        milestoneNameLabel.textColor = primaryTextColor
-//        projectNameLabel.textColor = secondaryTextColor
-//        milestoneDifficultyLabel.textColor = primaryTextColor
-//        milestoneDueDateLabel.textColor = primaryTextColor
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -208,13 +190,6 @@ class TimelineCell: UITableViewCell {
         
         addSubview(milestoneDueDateLabel)
         milestoneDueDateLabel.anchor(top: milestoneDifficultyLabel.bottomAnchor, left: nil, bottom: nil, right: rightAnchor, paddingTop: 5, paddingLeft: 5, paddingBottom: 5, paddingRight: 5, width: 0, height: 0, enableInsets: false)
-        
-//        let stackView = UIStackView(arrangedSubviews: [milestoneNameLabel, projectNameLabel])
-//        stackView.distribution = .equalSpacing
-//        stackView.axis = .vertical
-//        stackView.spacing = 5
-//        addSubview(stackView)
-//        stackView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 5, paddingLeft: 5, paddingBottom: 15, paddingRight: 5, width: 0, height: 0, enableInsets: false)
     }
         
     required init?(coder aDecoder: NSCoder) {
@@ -251,25 +226,11 @@ class AddProjectCell: UITableViewCell {
         contentView.addSubview(addProjectButton)
         addProjectButton.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 5, paddingLeft: 5, paddingBottom: 5, paddingRight: 5, width: 0, height: 0, enableInsets: false)
         addProjectButton.addTarget(self, action: #selector(didTapNewProjectButton), for: .touchUpInside)
-
-
-//        let stackView = UIStackView(arrangedSubviews: [milestoneNameLabel, projectNameLabel])
-//        stackView.distribution = .equalSpacing
-//        stackView.axis = .vertical
-//        stackView.spacing = 5
-//        addSubview(stackView)
-//        stackView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 5, paddingLeft: 5, paddingBottom: 15, paddingRight: 5, width: 0, height: 0, enableInsets: false)
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-//    let button = UIButton()
-//    button.setImage(UIImage(systemName: "plus"), for: .normal)
-//    button.addTarget(self, action: #selector(didTapNewProjectButton), for: .touchUpInside)
-//    button.frame = CGRect(x: footerView.center.x - 25, y: 0, width: 50, height: 50)
-//    button.tintColor = accentColor
-//    footerView.addSubview(button)
 }
 
 struct SchedulerStruct {
@@ -289,6 +250,7 @@ class Scheduler {
     }
         
     func queryMilestones() {
+        //reference from: https://firebase.google.com/docs/firestore
         print("Scheduler running...")
         db.collection(userID!).getDocuments(completion: { [self](querySnapshot, err) in
             if let err = err {
@@ -311,7 +273,6 @@ class Scheduler {
                     }
                     schedulerStruct.projectDict[document.documentID] = (projectDueDate, milestones)
                 }
-//                print("Projects Queried:", schedulerStruct.projectDict) //for some reason, the projectDueDate doesn't show up as a "date" datatype but is just fine in Firebase... weird
                 sortAndParseMilestones()
             }
         })
@@ -331,7 +292,7 @@ class Scheduler {
         return schedulerStruct.projectDict.count
     }
     
-    //returns the sorted milestones from the projectDict (CURRENTLY NO SORTING IS DONE)
+    //returns the sorted milestones from the projectDict
     func sortAndParseMilestones() {
         milestones.removeAll()
         for (_, value) in schedulerStruct.projectDict {
@@ -348,7 +309,7 @@ class Scheduler {
 extension Milestone {
     //MARK: - SORTING ALGORITHM 1
     // Create interval from current date to milestone due date
-    // Milestone Difficulty Rating / Interval Time
+    // Interval Time (in seconds) / Milestone DIfficulty Rating
     
     func getMilestoneRankingAlgorithmIndex(milestone: Milestone) -> Double {
         let timeInterval = milestone.milestoneDueDate.timeIntervalSinceNow

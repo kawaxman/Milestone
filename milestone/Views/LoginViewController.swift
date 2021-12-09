@@ -12,7 +12,6 @@ import SwiftUI
 
 class LoginViewController: UIViewController {
     
-    //OUTLETS
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButton: UIButton!

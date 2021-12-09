@@ -124,14 +124,7 @@ class MilestoneViewController: UITableViewController {
     }
     
     func pushData(m: [Milestone]) {
-        //for query selection + document and collection creation
-//        for milestone in m {
-//            self.db.collection(userID!).document().setData(["taskName" : milestone.taskName,
-//                                                            "milestoneName" : milestone.milestoneName,
-//                                                            "milestoneDueDate" : milestone.milestoneDueDate,
-//                                                            "milestoneDifficultyRating" : milestone.milestoneDifficultyRating])
-//        }
-//        self.db.collection(userID!).document(projectName).setData(["milestones" : [:]])
+        //reference from: https://firebase.google.com/docs/firestore
         for milestone in m {
             let currentMilestoneData = ["milestoneName": milestone.milestoneName,
                                         "milestoneDueDate": milestone.milestoneDueDate,
@@ -160,12 +153,6 @@ class MilestoneCell: UITableViewCell {
     @IBOutlet weak var milestoneTextField: UITextField!
     @IBOutlet weak var milestoneDatePicker: UIDatePicker!
     @IBOutlet weak var milestoneDifficultyRating: UISegmentedControl!
-    
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//        milestoneDatePicker.anchor(top: nil, left: nil, bottom: nil, right: nil, paddingTop: 5, paddingLeft: 5, paddingBottom: 5, paddingRight: 5, width: 0, height: 0, enableInsets: false)
-//    }
-    
     
     override func awakeFromNib() {
         super.awakeFromNib()

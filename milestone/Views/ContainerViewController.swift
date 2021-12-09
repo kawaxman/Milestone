@@ -32,8 +32,6 @@ class ContainerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        view.backgroundColor = secondColor
-//        self.view.backgroundColor = .systemRed
         
         //Found from youtube video on adding a side menu bar: youtube.com/watch?v=1hzPFAYcuUI
         addChildVCs()
@@ -91,7 +89,6 @@ extension ContainerViewController: TimelineViewControllerDelegate {
                 if done {
                     //When the opening animation is done, we need to do update the state to "open"
                     self?.sideMenuState = .opened
-//                    print("side bar is opened")
                 }
             }
 
@@ -104,9 +101,7 @@ extension ContainerViewController: TimelineViewControllerDelegate {
                 if done {
                     //When the opening animation is done, we need to do update the state to "closed"
                     self?.sideMenuState = .closed
-//                    print("side bar is closed")
                     DispatchQueue.main.async {
-//                        print("Attempting completion/callback handler")
                         completion?() //This is where we call the additional functionality if needed (must be done on the main UI thread so that the views are updated in proper time)
                     }
                 }
@@ -121,7 +116,6 @@ extension ContainerViewController: TimelineViewControllerDelegate {
 extension ContainerViewController: SideMenuViewControllerDelegate {
     func didSelect(sideMenuItem: SideMenuViewController.SideMenuOptions) {
         //This is where we will close the side menu and load the view that we selected
-//        print("Changing views") //this is not happening right after a selection
         toggleSideMenu(completion: nil)
         switch sideMenuItem {
         case .timeline:
@@ -132,8 +126,6 @@ extension ContainerViewController: SideMenuViewControllerDelegate {
             self.addCalendar()
             
             //This is how we "present" a modal to the user
-            //let vc = CalendarViewController()
-            //self?.present(UINavigationController(rootViewController: vc), animated: true, completion: nil)
         case .darkMode:
             //This will be where we change the colors
             if (darkMode == false) {
@@ -152,9 +144,10 @@ extension ContainerViewController: SideMenuViewControllerDelegate {
                 print("Dark mode off")
             }
             sideMenuTableView.reloadData()
-//            timelineTableView.reloadRows(at: timelineTableView.indexPathsForVisibleRows!, with: UITableView.RowAnimation.fade) //CELLS DO NOT PROPERLY RELOAD THEIR COLORS
             timelineTableView.reloadData()
-//            timelineTableView.reloadSections([0,0], with: .fade)
+            break
+        case .deleteAllProjects:
+            self.deleteAllProjects()
             break
         case .logOut:
             //This will be where we logout
@@ -204,7 +197,23 @@ extension ContainerViewController: SideMenuViewControllerDelegate {
         timelineVC.title = "Timeline"
     }
     
+    func deleteAllProjects() {
+        //reference from: https://firebase.google.com/docs/firestore
+        let db = Firestore.firestore()
+        let userID = Auth.auth().currentUser?.uid
+        db.collection(userID!).getDocuments(completion: { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                for document in querySnapshot!.documents {
+                    db.collection(userID!).document(document.documentID).delete()
+                }
+            }
+        })
+    }
+    
     func logout() {
+        //reference from: https://firebase.google.com/docs/firestore
         do {
             try Auth.auth().signOut()
             if let storyboard = self.storyboard {

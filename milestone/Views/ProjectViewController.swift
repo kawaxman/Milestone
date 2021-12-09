@@ -21,8 +21,6 @@ class ProjectViewController: UIViewController {
         cancelButton.tintColor = .white
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
-//        projectDueDateInput.anchor(top: projectInputTextField.bottomAnchor, left: nil, bottom: nil, right: nil, paddingTop: 30, paddingLeft: 5, paddingBottom: 5, paddingRight: 5, width: 0, height: 0, enableInsets: false)
-//        projectDueDateInput.frame = CGRect(x: self.frame.size.width, y: <#T##Double#>, width: <#T##Double#>, height: <#T##Double#>)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
